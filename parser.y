@@ -3,5 +3,5 @@
 /* Autor: Karima Drafli Rico */
 %%
 programa
-/* esto es el principio, luego ya pondre la regla bien */
+  : PROGRAMA /* aqui empieza el programa, falta todo lo demas */
 %%
