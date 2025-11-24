@@ -3,5 +3,5 @@
 /* Autor: Karima Drafli Rico */
 %%
 programa
-  : PROGRAMA ID /* el nombre del programa va aqui, todavia falta el resto */
+  : PROGRAMA ID '.' /* aqui va el punto despues del nombre, falta mas cosas */
 %%
