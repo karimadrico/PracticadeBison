@@ -7,4 +7,5 @@ programa
   
 sentencias
   : /* aqui van las sentencias */
+  | /* puede no haber sentencias, por si acaso */
 %%
