@@ -21,4 +21,12 @@ sentencia
 
 bucle
   : /* aqui van los bucles */
-%%
+
+comparar
+  : /* aqui van los condicionales, if */
+
+asignar
+  : /* aqui van las asignaciones y operaciones */
+
+io
+  : /* aqui va la entrada y salida, leer y mostrar */
