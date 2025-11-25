@@ -1,6 +1,8 @@
 /* parser.y */
 /* Práctica de Bison - Compilador COBOL simplificado */
 /* Autor: Karima Drafli Rico */
+%token PROGRAMA INICIO FIN ID
+%token '.' /* tratar el punto como token */
 %%
 programa
   : PROGRAMA ID '.' INICIO sentencias FIN '.' /* aqui termina el programa */
