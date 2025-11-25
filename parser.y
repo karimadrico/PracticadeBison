@@ -8,4 +8,7 @@ programa
 sentencias
   : /* aqui van las sentencias */
   | /* puede no haber sentencias, por si acaso */
+
+sentencia
+  : /* aqui va una sentencia, luego ya pondre las opciones */
 %%
