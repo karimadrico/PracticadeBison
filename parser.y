@@ -2,6 +2,7 @@
 /* Práctica de Bison - Compilador COBOL simplificado */
 /* Autor: Karima Drafli Rico */
 %token PROGRAMA INICIO FIN ID
+%token NUM MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEER MOSTRAR
 %token '.' /* tratar el punto como token */
 %%
 programa
