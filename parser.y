@@ -42,3 +42,9 @@ expresion
   | expresion '+' expresion /* suma */
   | expresion '-' expresion /* resta */
   | /* aquí irán más operaciones */
+
+condicion
+  : expresion '<' expresion /* menor que */
+  | expresion '>' expresion /* mayor que */
+  | expresion '=' expresion /* igual */
+  | /* aquí podrían ir más comparaciones */
