@@ -12,5 +12,6 @@ sentencias
 
 sentencia
   : bucle /* esto es para los bucles, luego añado mas opciones */
-  | /* aqui va una sentencia, luego ya pondre las opciones */
+  | comparar /* esto es para los condicionales, if y eso */
+  | /* aqui va una sentencia */
 %%
