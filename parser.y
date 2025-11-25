@@ -4,4 +4,7 @@
 %%
 programa
   : PROGRAMA ID '.' INICIO sentencias FIN '.' /* aqui termina el programa */
+  
+sentencias
+  : /* aqui van las sentencias */
 %%
