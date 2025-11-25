@@ -57,7 +57,16 @@ extern int yydebug;
     PROGRAMA = 258,                /* PROGRAMA  */
     INICIO = 259,                  /* INICIO  */
     FIN = 260,                     /* FIN  */
-    ID = 261                       /* ID  */
+    ID = 261,                      /* ID  */
+    NUM = 262,                     /* NUM  */
+    MIENTRAS = 263,                /* MIENTRAS  */
+    HACER = 264,                   /* HACER  */
+    FINMIENTRAS = 265,             /* FINMIENTRAS  */
+    SI = 266,                      /* SI  */
+    ENTONCES = 267,                /* ENTONCES  */
+    FINSI = 268,                   /* FINSI  */
+    LEER = 269,                    /* LEER  */
+    MOSTRAR = 270                  /* MOSTRAR  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

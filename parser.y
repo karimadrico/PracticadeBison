@@ -49,3 +49,7 @@ condicion
   | expresion '>' expresion /* mayor que */
   | expresion '=' expresion /* igual */
   | /* aquí podrían ir más comparaciones */
+%%
+void yyerror(const char *s) {
+    fprintf(stderr, "Error de sintaxis: %s\n", s);
+}
