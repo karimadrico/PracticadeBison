@@ -11,5 +11,6 @@ sentencias
   | /* puede no haber sentencias, por si acaso */
 
 sentencia
-  : /* aqui va una sentencia, luego ya pondre las opciones */
+  : bucle /* esto es para los bucles, luego añado mas opciones */
+  | /* aqui va una sentencia, luego ya pondre las opciones */
 %%
