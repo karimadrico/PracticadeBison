@@ -6,7 +6,8 @@ programa
   : PROGRAMA ID '.' INICIO sentencias FIN '.' /* aqui termina el programa */
   
 sentencias
-  : /* aqui van las sentencias */
+  : sentencia /* una sola sentencia */
+  | sentencias sentencia /* varias sentencias */
   | /* puede no haber sentencias, por si acaso */
 
 sentencia
