@@ -24,7 +24,8 @@ bucle
   | /* aquí iran otros tipos de bucle */
 
 comparar
-  : /* aqui van los condicionales, if */
+  : SI condicion ENTONCES sentencias FINSI '.' /* estructura básica de condicional */
+  | /* aquí podrían ir variantes de condicional */
 
 asignar
   : /* aqui van las asignaciones y operaciones */
