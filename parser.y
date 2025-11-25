@@ -28,7 +28,8 @@ comparar
   | /* aquí podrían ir variantes de condicional */
 
 asignar
-  : /* aqui van las asignaciones y operaciones */
+  : ID '=' expresion '.' /* asignación simple */
+  | /* aquí podrían ir otras formas de asignación */
 
 io
   : /* aqui va la entrada y salida, leer y mostrar */
