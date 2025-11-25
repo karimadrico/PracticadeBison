@@ -35,3 +35,10 @@ io
   : LEER ID '.' /* lectura de variable */
   | MOSTRAR expresion '.' /* mostrar resultado */
   | /* aquí podrían ir otras formas de entrada/salida */
+
+expresion
+  : ID /* variable */
+  | NUM /* número */
+  | expresion '+' expresion /* suma */
+  | expresion '-' expresion /* resta */
+  | /* aquí irán más operaciones */
