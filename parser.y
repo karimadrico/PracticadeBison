@@ -20,8 +20,8 @@ sentencia
   | /* aqui va una sentencia */
 
 bucle
-  : /* ejemplo de bucle MIENTRAS */
-    // ...aquí irá la producción real...
+  : MIENTRAS condicion HACER sentencias FINMIENTRAS '.' /* estructura básica de bucle */
+  | /* aquí iran otros tipos de bucle */
 
 comparar
   : /* aqui van los condicionales, if */
