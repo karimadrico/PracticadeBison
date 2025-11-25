@@ -32,4 +32,6 @@ asignar
   | /* aquí podrían ir otras formas de asignación */
 
 io
-  : /* aqui va la entrada y salida, leer y mostrar */
+  : LEER ID '.' /* lectura de variable */
+  | MOSTRAR expresion '.' /* mostrar resultado */
+  | /* aquí podrían ir otras formas de entrada/salida */
