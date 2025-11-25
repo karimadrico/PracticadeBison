@@ -14,5 +14,6 @@ sentencia
   : bucle /* esto es para los bucles */
   | comparar /* esto es para los condicionales, if */
   | asignar /* esto es para las asignaciones y operaciones */
+  | io /* esto es para entrada y salida, leer y mostrar */
   | /* aqui va una sentencia */
 %%
