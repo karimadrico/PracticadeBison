@@ -8,10 +8,11 @@ programa
 sentencias
   : sentencia /* una sola sentencia */
   | sentencias sentencia /* varias sentencias */
-  | /* puede no haber sentencias, por si acaso */
+  | /* puede no haber sentencias */
 
 sentencia
-  : bucle /* esto es para los bucles, luego añado mas opciones */
-  | comparar /* esto es para los condicionales, if y eso */
+  : bucle /* esto es para los bucles */
+  | comparar /* esto es para los condicionales, if */
+  | asignar /* esto es para las asignaciones y operaciones */
   | /* aqui va una sentencia */
 %%
