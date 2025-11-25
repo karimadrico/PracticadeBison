@@ -3,5 +3,5 @@
 /* Autor: Karima Drafli Rico */
 %%
 programa
-  : PROGRAMA ID '.' INICIO /* ahora empieza el bloque de sentencias, falta ponerlo */
+  : PROGRAMA ID '.' INICIO sentencias FIN '.' /* aqui termina el programa */
 %%
