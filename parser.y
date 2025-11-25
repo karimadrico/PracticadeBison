@@ -16,4 +16,7 @@ sentencia
   | asignar /* esto es para las asignaciones y operaciones */
   | io /* esto es para entrada y salida, leer y mostrar */
   | /* aqui va una sentencia */
+
+bucle
+  : /* aqui van los bucles */
 %%
