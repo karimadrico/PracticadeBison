@@ -24,5 +24,4 @@
 /* Comentario de línea: desde *> o *| hasta fin de línea */
 \*\>.*          { /* ignorar comentario de línea */ }
 \*\|.*          { /* ignorar comentario de línea */ }
-[ \t\n]+     { /* ignorar espacios */ }
 %%
