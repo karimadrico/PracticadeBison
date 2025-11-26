@@ -17,4 +17,12 @@
 [A-Z][A-Z0-9-]* { return ID; }
 \.           { return '.'; }
 [ \t\n]+     { /* ignorar espacios */ }
+
+/* Comentario COBOL: línea que empieza por 6 espacios y asterisco */
+"      *".*   { /* ignorar línea completa */ }
+
+/* Comentario de línea: desde *> o *| hasta fin de línea */
+"*>".*        { /* ignorar hasta fin de línea */ }
+"*|".*        { /* ignorar hasta fin de línea */ }
+[ \t\n]+     { /* ignorar espacios */ }
 %%
