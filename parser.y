@@ -3,6 +3,7 @@
 /* Autor: Karima Drafli Rico */
 %{
 #include <stdio.h>
+extern FILE *yyin;
 %}
 %token PROGRAMA INICIO FIN ID
 %token NUM MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEER MOSTRAR
