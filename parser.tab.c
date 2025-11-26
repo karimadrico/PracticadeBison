@@ -1298,3 +1298,8 @@ yyreturnlab:
   return yyresult;
 }
 
+#line 52 "parser.y"
+
+void yyerror(const char *s) {
+    fprintf(stderr, "Error de sintaxis: %s\n", s);
+}

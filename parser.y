@@ -1,6 +1,7 @@
 /* parser.y */
 /* Práctica de Bison - Compilador COBOL simplificado */
 /* Autor: Karima Drafli Rico */
+#include <stdio.h> /* Añadir #include <stdio.h> para yyerror */
 %token PROGRAMA INICIO FIN ID
 %token NUM MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEER MOSTRAR
 %token '.' /* tratar el punto como token */
