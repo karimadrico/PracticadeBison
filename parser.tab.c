@@ -70,8 +70,9 @@
 #line 4 "parser.y"
 
 #include <stdio.h>
+extern FILE *yyin;
 
-#line 75 "parser.tab.c"
+#line 76 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -518,9 +519,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    12,    12,    15,    16,    17,    20,    21,    22,    23,
-      24,    27,    28,    31,    32,    35,    36,    39,    40,    41,
-      44,    45,    46,    47,    48,    51,    52,    53,    54
+       0,    13,    13,    16,    17,    18,    21,    22,    23,    24,
+      25,    28,    29,    32,    33,    36,    37,    40,    41,    42,
+      45,    46,    47,    48,    49,    52,    53,    54,    55
 };
 #endif
 
@@ -1111,7 +1112,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1115 "parser.tab.c"
+#line 1116 "parser.tab.c"
 
       default: break;
     }
@@ -1304,8 +1305,20 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 55 "parser.y"
+#line 56 "parser.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error de sintaxis: %s\n", s);
+}
+int main(int argc, char *argv[]) {
+  if (argc > 1) {
+    FILE *f = fopen(argv[1], "r");
+    if (!f) {
+      perror("No se pudo abrir el archivo");
+      return 1;
+    }
+    yyin = f;
+  }
+  yyparse();
+  return 0;
 }

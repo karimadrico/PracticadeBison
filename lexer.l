@@ -19,10 +19,10 @@
 [ \t\n]+     { /* ignorar espacios */ }
 
 /* Comentario COBOL: línea que empieza por 6 espacios y asterisco */
-"      *".*   { /* ignorar línea completa */ }
+[ ]{6}\*.*      { /* ignorar línea completa COBOL */ }
 
 /* Comentario de línea: desde *> o *| hasta fin de línea */
-"*>".*        { /* ignorar hasta fin de línea */ }
-"*|".*        { /* ignorar hasta fin de línea */ }
+\*\>.*          { /* ignorar comentario de línea */ }
+\*\|.*          { /* ignorar comentario de línea */ }
 [ \t\n]+     { /* ignorar espacios */ }
 %%
