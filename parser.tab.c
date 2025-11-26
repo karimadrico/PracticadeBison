@@ -66,6 +66,12 @@
 
 
 
+/* First part of user prologue.  */
+#line 4 "parser.y"
+
+#include <stdio.h>
+
+#line 75 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -512,9 +518,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,     9,     9,    12,    13,    14,    17,    18,    19,    20,
-      21,    24,    25,    28,    29,    32,    33,    36,    37,    38,
-      41,    42,    43,    44,    45,    48,    49,    50,    51
+       0,    12,    12,    15,    16,    17,    20,    21,    22,    23,
+      24,    27,    28,    31,    32,    35,    36,    39,    40,    41,
+      44,    45,    46,    47,    48,    51,    52,    53,    54
 };
 #endif
 
@@ -1105,7 +1111,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1109 "parser.tab.c"
+#line 1115 "parser.tab.c"
 
       default: break;
     }
@@ -1298,7 +1304,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 52 "parser.y"
+#line 55 "parser.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error de sintaxis: %s\n", s);
