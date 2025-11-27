@@ -3,6 +3,8 @@
 #include <stdio.h>
 %}
 
+%option noyywrap
+
 %%
 "PROGRAMA"       { return PROGRAMA; }
 "INICIO"         { return INICIO; }
@@ -15,6 +17,7 @@
 "FINSI"          { return FINSI; }
 "LEER"           { return LEER; }
 "MOSTRAR"        { return MOSTRAR; }
+
 [0-9]+            { return NUM; }
 [A-Z][A-Z0-9-]*   { return ID; }
 \.                { return '.'; }
@@ -30,8 +33,6 @@
 .                 { return yytext[0]; }
 
 %%
-
-int yywrap(void) { return 1; }
 %{
 #include "parser.tab.h"
 #include <stdio.h>
