@@ -6,30 +6,37 @@
 %option noyywrap
 
 %%
-"PROGRAMA"       { return PROGRAMA; }
-"INICIO"         { return INICIO; }
-"FIN"            { return FIN; }
-"MIENTRAS"       { return MIENTRAS; }
-"HACER"          { return HACER; }
-"FINMIENTRAS"    { return FINMIENTRAS; }
-"SI"             { return SI; }
-"ENTONCES"       { return ENTONCES; }
-"FINSI"          { return FINSI; }
-"LEER"           { return LEER; }
-"MOSTRAR"        { return MOSTRAR; }
 
+/* Palabras reservadas COBOL */
+PROGRAMA       { return PROGRAMA; }
+INICIO         { return INICIO; }
+FIN            { return FIN; }
+MIENTRAS       { return MIENTRAS; }
+HACER          { return HACER; }
+FINMIENTRAS    { return FINMIENTRAS; }
+SI             { return SI; }
+ENTONCES       { return ENTONCES; }
+FINSI          { return FINSI; }
+LEER           { return LEER; }
+MOSTRAR        { return MOSTRAR; }
+
+/* Números e identificadores */
 [0-9]+            { return NUM; }
 [A-Z][A-Z0-9-]*   { return ID; }
-\.                { return '.'; }
-[ \t\r\n]+      { /* ignore whitespace */ }
 
-/* Comentario COBOL: línea que empieza por 6 espacios y asterisco */
-"      *".*       { /* ignore full COBOL comment line */ }
+"."              { return '.'; }
 
-/* Comentario de línea: desde *> o *| hasta fin de línea */
-"*>".*            { /* ignore comment starting with "*>" */ }
-"*|".*            { /* ignore comment starting with "*|" */ }
+/* Espacios en blanco */
+[ \t\r\n]+      { /* ignorar espacios en blanco */ }
 
+/* COBOL Línea que comienza con seis espacios y * en la columna 7 */
+^      \*.*       { /* ignorar línea de comentario COBOL (seis espacios y *) */ }
+
+/* Comentarios en línea hasta el final de la línea: "*>" o "*|" */
+\*>.*             { /* ignorar comentario que empieza con "*>" */ }
+\*\|.*           { /* ignorar comentario que empieza con "*|" */ }
+
+/* Cualquier otro carácter (operadores, puntuación) */
 .                 { return yytext[0]; }
 
 %%
