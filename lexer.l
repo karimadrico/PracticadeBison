@@ -11,7 +11,7 @@
 %%
 
 /* Comentario COBOL: línea que empieza por 6 espacios y un asterisco */
-^      \*.*          { /* Ignorar línea completa de comentario COBOL */ ; }
+^[ ][ ][ ][ ][ ][ ]\*.*          { /* Ignorar línea completa de comentario COBOL */ ; }
 
 /* Comentarios en línea: *> o *| hasta fin de línea */
 \*>[^\n]*           { /* Ignorar comentario que comienza con "*>" */ ; }
@@ -21,7 +21,7 @@
 [ \t\r\n]+         { /* Ignorar espacios en blanco */ ; }
 
 /* Cadenas entre comillas dobles o simples */
-"[^"]*"            { return CAD; }
+\"[^\"]*\"            { return CAD; }
 \'[^\']*\'         { return CAD; }
 
 /* Números */
