@@ -6,8 +6,8 @@
 %option noyywrap
 %%
 [ \t\r\n]+   { /* Ignorar */ ; }
-"[^"\n]*"   { /* yylval.cad = strdup(yytext); */ return CAD; }
-'[^'\n]*'   { /* yylval.cad = strdup(yytext); */ return CAD; }
+\"[^\"]*\"      { /* yylval.cad = strdup(yytext); */ return CAD; }
+\'[^\']*\'      { /* yylval.cad = strdup(yytext); */ return CAD; }
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
