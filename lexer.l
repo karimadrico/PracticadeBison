@@ -41,7 +41,15 @@ LEER                 { return LEER; }
 MOSTRAR              { return MOSTRAR; }
 
 /* Identificador general: comienza por letra mayúscula y puede contener dígitos y guiones */
-[A-Z][A-Z0-9-]*      { return ID; }
+[A-Z][A-Z0-9-]*      {
+											int L = (int)strlen(yytext);
+											if (L > 0 && (yytext[0] == '-' || yytext[L-1] == '-')) {
+												fprintf(stderr, "Identificador inválido (guión al inicio/final): %s\n", yytext);
+												/* Ignorar token inválido */
+											} else {
+												return ID;
+											}
+										}
 
 /* Punto como token literal */
 \.                   { return '.'; }
