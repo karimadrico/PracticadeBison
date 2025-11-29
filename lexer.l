@@ -10,41 +10,26 @@
 
 %%
 
-/* Comentario COBOL: línea que empieza por 6 espacios y un asterisco */
-^[ ][ ][ ][ ][ ][ ]\*.*          { /* Ignorar línea completa de comentario COBOL */ ; }
+/* Comentario COBOL (columna 7): seis espacios ASCII seguidos de '*' */
+^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar línea completa de comentario COBOL */ ; }
 
-/* Comentarios en línea: *> o *| hasta fin de línea */
-\*>[^\n]*           { /* Ignorar comentario que comienza con "*>" */ ; }
-\*\|[^\n]*         { /* Ignorar comentario que comienza con "*|" */ ; }
+/* Comentarios en línea: comienzan con "*>" o "*|" y van hasta el fin de línea */
+\*>[^
+]*    { /* Ignorar comentario que comienza con "*>" */ ; }
+\*\|[^
+]*   { /* Ignorar comentario que comienza con "*|" */ ; }
 
-/* Espacios en blanco */
-[ \t\r\n]+         { /* Ignorar espacios en blanco */ ; }
+/* Espacios en blanco (incluye saltos de línea) */
+[ \t\r\n]+   { /* Ignorar */ ; }
 
-/* Cadenas entre comillas dobles o simples */
-\"[^\"]*\"            { return CAD; }
-\'[^\']*\'         { return CAD; }
-
-/* Números */
-[0-9]+               { return NUM; }
-
-/* COBOL: comentario en columna 7 (seis espacios ASCII seguidos de '*') */
-^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar */ }
-
-/* Comentarios en línea: comienzan con "*>" o "*|" hasta fin de línea */
-\*>[^\n]*    { /* Ignorar */ }
-\*\|[^\n]*   { /* Ignorar */ }
-
-/* Espacios en blanco */
-[ \t\r\n]+   { /* Ignorar */ }
-
-/* Cadenas (sin saltos de línea) */
+/* Cadenas: dobles o simples (sin salto de línea dentro) */
 \"[^\"\n]*\"   { return CAD; }
 '[^'\n]*'          { return CAD; }
 
-/* Números */
+/* Números positivos */
 [0-9]+       { return NUM; }
 
-/* Palabras reservadas (mayúsculas) - colocadas antes de la regla ID */
+/* Palabras reservadas (mayúsculas). Deben ir antes de ID. */
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
@@ -57,12 +42,13 @@ FINSI        { return FINSI; }
 LEER         { return LEER; }
 MOSTRAR      { return MOSTRAR; }
 
-/* Identificador */
+/* Identificador: empieza con letra mayúscula, puede contener dígitos y guiones
+   validación en la acción para evitar guiones al inicio/fin */
 [A-Z][A-Z0-9-]*  {
 	int L = (int)strlen(yytext);
 	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
 		fprintf(stderr,"Identificador inválido: %s\n", yytext);
-		/* Ignorar */
+		/* Ignorar token inválido */
 	} else {
 		return ID;
 	}
@@ -71,7 +57,7 @@ MOSTRAR      { return MOSTRAR; }
 /* Punto literal */
 \.            { return '.'; }
 
-/* Cualquier otro carácter */
+/* Cualquier otro carácter: devolver su código ASCII */
 .             { return yytext[0]; }
 
 %%
