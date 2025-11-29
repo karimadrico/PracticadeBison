@@ -27,35 +27,52 @@
 /* Números */
 [0-9]+               { return NUM; }
 
-/* Palabras reservadas (mayúsculas exactas) */
-PROGRAMA             { return PROGRAMA; }
-INICIO               { return INICIO; }
-FIN                  { return FIN; }
-MIENTRAS             { return MIENTRAS; }
-HACER                { return HACER; }
-FINMIENTRAS          { return FINMIENTRAS; }
-SI                   { return SI; }
-ENTONCES             { return ENTONCES; }
-FINSI                { return FINSI; }
-LEER                 { return LEER; }
-MOSTRAR              { return MOSTRAR; }
+/* COBOL: comentario en columna 7 (seis espacios ASCII seguidos de '*') */
+^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar */ }
 
-/* Identificador general: comienza por letra mayúscula y puede contener dígitos y guiones */
-[A-Z][A-Z0-9-]*      {
-											int L = (int)strlen(yytext);
-											if (L > 0 && (yytext[0] == '-' || yytext[L-1] == '-')) {
-												fprintf(stderr, "Identificador inválido (guión al inicio/final): %s\n", yytext);
-												/* Ignorar token inválido */
-											} else {
-												return ID;
-											}
-										}
+/* Comentarios en línea: comienzan con "*>" o "*|" hasta fin de línea */
+\*>[^\n]*    { /* Ignorar */ }
+\*\|[^\n]*   { /* Ignorar */ }
 
-/* Punto como token literal */
-\.                   { return '.'; }
+/* Espacios en blanco */
+[ \t\r\n]+   { /* Ignorar */ }
 
-/* Cualquier otro caracter */
-.                    { return yytext[0]; }
+/* Cadenas (sin saltos de línea) */
+\"[^\"\n]*\"   { return CAD; }
+'[^'\n]*'          { return CAD; }
+
+/* Números */
+[0-9]+       { return NUM; }
+
+/* Palabras reservadas (mayúsculas) - colocadas antes de la regla ID */
+PROGRAMA     { return PROGRAMA; }
+INICIO       { return INICIO; }
+FIN          { return FIN; }
+MIENTRAS     { return MIENTRAS; }
+HACER        { return HACER; }
+FINMIENTRAS  { return FINMIENTRAS; }
+SI           { return SI; }
+ENTONCES     { return ENTONCES; }
+FINSI        { return FINSI; }
+LEER         { return LEER; }
+MOSTRAR      { return MOSTRAR; }
+
+/* Identificador */
+[A-Z][A-Z0-9-]*  {
+	int L = (int)strlen(yytext);
+	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
+		fprintf(stderr,"Identificador inválido: %s\n", yytext);
+		/* Ignorar */
+	} else {
+		return ID;
+	}
+}
+
+/* Punto literal */
+\.            { return '.'; }
+
+/* Cualquier otro carácter */
+.             { return yytext[0]; }
 
 %%
 
