@@ -27,16 +27,22 @@ int keyword_or_id(void) {
 /* Números */
 [0-9]+            { return NUM; }
 
-/* Identificadores y palabras reservadas (mayusculas) */
-[A-Z][A-Z0-9-]*   { return keyword_or_id(); }
+/* Identificadores y palabras reservadas (mayúsculas) */
+[A-Z]([A-Z0-9-]*[A-Z0-9])?   { return keyword_or_id(); }
 
 \.                { return '.'; }
 
 /* Espacios en blanco */
-[ \t\r\n]+      { /* ignorar espacios en blanco */ }
+[ \t\r\n]+      { /* Ignorar espacios en blanco */ }
 
+/* Comentario COBOL: línea que empieza por 6 espacios y un asterisco */
+^      \*.*        { /* Ignorar línea completa de comentario COBOL */ }
 
-/* Cualquier otro caracter (operadores, puntuacion) */
+/* Comentario de línea: desde *> o *| hasta el final de la línea */
+\*>[^\n]*          { /* Ignorar comentario que comienza con "*>" */ }
+\*\|[^\n]*        { /* Ignorar comentario que comienza con "*|" */ }
+
+/* Cualquier otro carácter (operadores, puntuación) */
 .                 { return yytext[0]; }
 
 %%
