@@ -35,9 +35,6 @@ int keyword_or_id(void) {
 /* Espacios en blanco */
 [ \t\r\n]+      { /* ignorar espacios en blanco */ }
 
-/* Comentarios en linea hasta el final de la linea: "*>" o "*|" */
-\*>[^\n]*          { /* ignorar comentario que empieza con "*>" */ }
-\*\|[^\n]*        { /* ignorar comentario que empieza con "*|" */ }
 
 /* Cualquier otro caracter (operadores, puntuacion) */
 .                 { return yytext[0]; }
