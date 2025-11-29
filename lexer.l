@@ -5,10 +5,10 @@
 %}
 %option noyywrap
 %%
-[ \t\r\n]+   { /* Ignorar */ ; }
 "      *".*      { /* Ignorar línea completa de comentario COBOL */ ; }
 "*>".*           { /* Ignorar comentario que comienza con "*>" */ ; }
 "*|".*           { /* Ignorar comentario que comienza con "*|" */ ; }
+[ \t\r\n]+   { /* Ignorar */ ; }
 [ \t\r\n]+   { /* Ignorar */ ; }
 \"[^\"]*\"      { /* yylval.cad = strdup(yytext); */ return CAD; }
 \'[^\']*\'      { /* yylval.cad = strdup(yytext); */ return CAD; }
