@@ -36,14 +36,15 @@ int keyword_or_id(void) {
 [ \t\r\n]+      { /* Ignorar espacios en blanco */ }
 
 /* Comentario COBOL: línea que empieza por 6 espacios y un asterisco */
-"      \*"        { /* Ignorar línea completa de comentario COBOL */ }
+^\ {6}\*.*        { /* Ignorar línea completa de comentario COBOL */ }
 
 /* Comentario de línea: desde *> o *| hasta el final de la línea */
-\*>.*              { /* Ignorar comentario que comienza con "*>" */ }
-\*\|.*            { /* Ignorar comentario que comienza con "*|" */ }
+\*>[^"]*          { /* Ignorar comentario que comienza con "*>" */ }
+\*\|[^\n]*       { /* Ignorar comentario que comienza con "*|" */ }
 
-/* Cadenas de caracteres */
-("[^"]*"|'[^']*') { return CAD; }
+/* Cadenas de caracteres: dobles y simples (no permiten comillas desbalanceadas) */
+"[^"]*"          { return CAD; }
+'[^']*'            { return CAD; }
 
 /* Cualquier otro carácter (operadores, puntuación) */
 .                 { return yytext[0]; }
