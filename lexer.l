@@ -6,8 +6,7 @@
 %option noyywrap
 %%
 "      *".*      { /* Ignorar línea completa de comentario COBOL */ ; }
-"*>".*           { /* Ignorar comentario que comienza con "*>" */ ; }
-"*|".*           { /* Ignorar comentario que comienza con "*|" */ ; }
+("*>".*|"*|".*)   { /* Ignorar comentario en línea */ ; }
 [ \t\r\n]+   { /* Ignorar */ ; }
 [ \t\r\n]+   { /* Ignorar */ ; }
 \"[^\"]*\"      { /* yylval.cad = strdup(yytext); */ return CAD; }
