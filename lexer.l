@@ -8,17 +8,17 @@
 %%
 
 /* Palabras reservadas COBOL */
-PROGRAMA       { return PROGRAMA; }
-INICIO         { return INICIO; }
-FIN            { return FIN; }
-MIENTRAS       { return MIENTRAS; }
-HACER          { return HACER; }
-FINMIENTRAS    { return FINMIENTRAS; }
-SI             { return SI; }
-ENTONCES       { return ENTONCES; }
-FINSI          { return FINSI; }
-LEER           { return LEER; }
-MOSTRAR        { return MOSTRAR; }
+"PROGRAMA"       { return PROGRAMA; }
+"INICIO"         { return INICIO; }
+"FIN"            { return FIN; }
+"MIENTRAS"       { return MIENTRAS; }
+"HACER"          { return HACER; }
+"FINMIENTRAS"    { return FINMIENTRAS; }
+"SI"             { return SI; }
+"ENTONCES"       { return ENTONCES; }
+"FINSI"          { return FINSI; }
+"LEER"           { return LEER; }
+"MOSTRAR"        { return MOSTRAR; }
 
 /* Números e identificadores */
 [0-9]+            { return NUM; }
@@ -29,10 +29,7 @@ MOSTRAR        { return MOSTRAR; }
 /* Espacios en blanco */
 [ \t\r\n]+      { /* ignorar espacios en blanco */ }
 
-/* COBOL Línea que comienza con seis espacios y * en la columna 7 */
-^      \*.*       { /* ignorar línea de comentario COBOL (seis espacios y *) */ }
-
-/* Comentarios en línea hasta el final de la línea: "*>" o "*|" */
+/* Comentarios en linea hasta el final de la linea: "*>" o "*|" */
 \*>.*             { /* ignorar comentario que empieza con "*>" */ }
 \*\|.*           { /* ignorar comentario que empieza con "*|" */ }
 
