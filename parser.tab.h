@@ -67,7 +67,10 @@ extern int yydebug;
     ENTONCES = 268,                /* ENTONCES  */
     FINSI = 269,                   /* FINSI  */
     LEER = 270,                    /* LEER  */
-    MOSTRAR = 271                  /* MOSTRAR  */
+    MOSTRAR = 271,                 /* MOSTRAR  */
+    DISPLAY = 272,                 /* DISPLAY  */
+    SINO = 273,                    /* SINO  */
+    MUESTRA = 274                  /* MUESTRA  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

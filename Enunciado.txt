@@ -1,0 +1,377 @@
+Práctica de Bison
+Enunciado
+Se trata de utilizar Bison para obtener un compilador que traduzca un lenguaje de alto nivel (inspirado en el lenguaje COBOL) a código de máquina de pila abstracta. Básicamente lo mismo que hace el analizador recursivo descendente en C explicado en uno de los vídeos de prácticas.
+
+El lenguaje de alto nivel es sencillo, una simplificación muy libre y castellanizada del lenguaje COBOL. No tiene declaración de tipos. Los únicos valores literales que se permiten son las cadenas de caracteres (CAD) y valores numéricos enteros positivos (NUM). Las cadenas de caracteres pueden ser de dos tipos, una delimitada con comillas simples, la otra delimitada con comillas dobles.
+
+Cadenas válidas: "Esto es una 'cadena'", 'Esto "es" otra'.
+Cadenas inválidas: "Hola mundo', 'finalizado".
+Los nombres de variables solo pueden contener letras en mayúscula y dígitos. También pueden contener guiones (-) con la única restricción que el guion no puede iniciar o finalizar el nombre de la variable. Tampoco puede empezar por un dígito, ni coincidir con ninguna palabra reservada (las utilizadas para implementar las instrucciones, ver la gramática).
+
+Son nombres de variables válidos: WS-A, VAR, A12, WS-2.
+No son válidos nombres como: WS_A, WS*, SI, MUESTRA, -WS, WS-, 2B.
+Tiene dos tipos de comentarios:
+
+Cualquier línea con un asterisco en la columna 7 es un comentario de línea completa (es decir cualquier línea que empiece por 6 espacios seguidos por un asterisco, es ignorada por completo, es un herencia histórica de cuando se programaba usando tarjetas perforadas).
+Los comentarios en las líneas de código empiezan por la secuencia *> (o la secuencia *|) y abarcan hasta el final de línea.
+Tiene dos tipos de bucles:
+
+Un bucle que se ejecuta hasta que se verifica una condición.
+Otro que se repite un número dado de veces cambiado en cada iteración una variable contador que toma valores desde 1 hasta el número máximo de repeticiones.
+La ejecución condicional utiliza una expresión booleana que permite ejecutar o no una porción de código, o ejecutar una porción de código cuando la expresión booleana es cierta o un código alternativo cuando es falsa.
+
+Cuando los verbos SUMA, RESTA, MULTIPLICA y DIVIDE se usan sin una clausula DANDO, el elemento valor que sigue a la palabra reservada A, DE o POR es siempre un ID y es a dicha variable a la que se hace la asignación del valor calculado. Si aparece el DANDO es el identificador que sigue a dicha palabra reservada al que se le da el valor resultado del cálculo. Por ejemplo, para una instrucción como RESTA 2 3 DE var el resultado de restar 2 y 3 de var terminará almacenado en la propia variable var. Pero si la instrucción es RESTA 2 3 DE var DANDO var2, el resultado de restar 2 y 3 de var terminará almacenado en var2.
+
+Como en la máquina de pila explicada en el material de prácticas, solo se permiten valores enteros positivos, con lo que los valores lógicos se representaban con 0, para falso, con cualquier otro valor para cierto.
+
+Aunque también es posible meter en la pila punteros a cadena para su impresión con el comando MUESTRA (ver lista de instrucciones a continuación). En concreto, en la máquina de pila se dispondrá de las siguientes órdenes adicionales:
+
+lee, que lee la entrada de usuario y la almacena en la variable var.
+metecad, guarda la cadena en un área de constantes y mete en la pila un puntero a dicha cadena.
+print, que extrae los n siguientes elementos de la pila, imprimiéndolos en orden inverso de extracción (para las cadenas utiliza el puntero en la pila para acceder al valor de la cadena).
+xor, realiza la operación XOR entre el elemento en el tope de la pila y el elemento en tope - 1, dejando el resultado en el tope. Útil para comprobar si los elementos en tope y tope - 1 son iguales, si son iguales, tras usar este operador, los dos elementos en tope y tope - 1 se habrán sustituido por 0.
+not, sustituye el elemento del tope de pila, por 1 si es 0, por 0 es caso contrario.
+swap, intercambia el elemento de tope de pila con el elemento en tope - 1. Esta nueva instrucción es necesaria porque para algunas operaciones de este lenguaje inventado el identificador donde se almacena el valor calculado aparece al final de la instrucción por después de la expresión para calcular su valor (ver los ejemplos de generación de código más adelante).
+El traductor desarrollado debe ser capaz tanto de leer de la entrada estándar (teclado) como de leer del archivo cuyo nombre se le pase por argumento. Los nombres de los tóquenes deben empezar con el prefijo «tk». Los no terminales deben terminar con el sufijo «_NT».
+
+Los diagramas de trenes para los elementos del lenguaje son:
+
+programa:
+
+
+
+ 
+
+sentencias:
+
+sentencias
+
+Referenciado por: bucle, comparar, programa.
+
+sentencia:
+
+sentencia
+
+Referenciado por: sentencias.
+
+bucle:
+
+bucle
+
+Referenciado por: sentencia.
+
+comparar:
+
+comparar
+
+Referenciado por: sentencia.
+
+io:
+
+io
+
+Referenciado por: sentencia.
+
+listaLiterales:
+
+listaLiterales
+
+Referenciado por: io.
+
+literal:
+
+literal
+
+Referenciado por: listaLiterales.
+
+asignar:
+
+asignar
+
+Referenciado por: sentencia.
+
+listaValores:
+
+listaValores
+
+Referenciado por: asignar.
+
+valor:
+
+valor
+
+Referenciado por: asignar, bucle, listaValores.
+
+expr:
+
+expr
+
+Referenciado por: asignar, condición, valorComplejo.
+
+mult:
+
+mult
+
+Referenciado por: expr.
+
+valorComplejo:
+
+valorComplejo
+
+Referenciado por: mult.
+
+condición:
+
+condición
+
+Referenciado por: bucle, comparar.
+
+Notas
+NOTA1: Si fuera necesario, se pueden crear nuevos no terminales con sus correspondientes producciones para agrupar de forma distinta la definición del lenguaje, o duplicar no terminales y sus correspondientes producciones para asociarles distintas reglase semánticas dependiendo de donde aparezcan los no terminales, si eso ayuda en el proceso de construir las traducciones.
+
+NOTA2: Quizás no lo necesitéis, pero las funciones C (utilizadas en alguno de los ejemplos de los vídeos): strdup y asprintf pueden ser muy útiles (aunque no estrictamente necesarias) a la hora de resolver la práctica. Ahí dejo la pista. Si usáis asprintf, además de incluir la biblioteca adecuada con #include <stdlib.h>, para evitar el warning "implicit declaration asprintf", al compilar, necesitáis incluir la definición #define _GNU_SOURCE antes de la inclusión de la biblioteca.
+
+NOTA3: Aunque no está explicado en los vídeos, a la hora de acceder a los valores semánticos de los elementos de una producción en Bison, además de las referencias a los valores semánticos utilizando el orden en el que aparecen los elementos en la producción: $$, $1, $2,…, se pueden utilizar referencias por nombre: $expr, $atomic,…, que pueden facilitar y hacer más clara la programación de la práctica.
+
+NOTA4: El programa tiene que estar preparado tanto para pasarle el archivo desde la entrada estándar como para pasarle el nombre del archivo que tiene que procesar.
+
+NOTA5: No podrá aprobarse la práctica con un parser en el que haya conflictos shift/reduce o reduce/reduce.
+
+NOTA6: No se permite utilizar C para resolver cosas que se pueden hacer en directamente en Flex y Bison. El uso de C debe restringirse al mínimo necesario, aunque se permitirá usar funciones como strdup, asprintf, free, fprintf, fopen, perror, u otras, siempre que esté justificada la imposibilidad de hacerlo con Flex y Bison.
+
+NOTA7: Se valorará positivamente que el código sea ordenado y claro, esté convenientemente comentado y que en los comentarios no haya faltas de ortografía.
+
+Ejemplos
+Ejemplo 1
+Ante una entrada como:
+
+PROGRAMA EXAMPLE1.
+      * Comentario COBOL de asterisco en columna 7
+INICIO  *> otro comentario
+       CALCULA VAR = 5 * 25 FIN-CALCULA. *> VAR toma el valor de 5 * 25
+       LEE V.                            *> Leer valor para V
+       LEE V2.                           *> Leer valor para V2
+       EJECUTA                           *> bucle para decrementar VAR
+         RESTA 2 5 DE VAR.
+       FIN-EJECUTA
+       HASTA-QUE VAR ES IGUAL A 0.
+       SI 5 - VAR ES MAYOR QUE 0         *> Condicional
+       ENTONCES
+      * Rama ENTONCES
+             RESTA 1 2 DE V2 DANDO V.
+             MULTIPLICA 3 POR V DANDO Z.
+             MUESTRA "3*(V-1) es: ", Z.
+       SINO
+      * Rama SINO
+             CALCULA Z COMO VAR + 10.
+             MUESTRA 'VAR + 10 es: ', Z.
+       FIN-SI.
+FIN.
+Debería mostrar (excepto quizá el número de las etiquetas):
+
+    valori VAR
+    mete 5
+    mete 25
+    mul
+    asigna
+    lee V
+    lee V2
+LBL0:
+    mete 2
+    mete 5
+    add
+    valord VAR
+    swap
+    sub
+    valori VAR
+    swap
+    asigna
+    valord VAR
+    mete 0
+    xor
+    not
+    siciertovea LBL1
+    vea LBL0
+LBL1:
+    mete 5
+    valord VAR
+    sub
+    mete 0
+    sub
+    sifalsovea LBL2
+    mete 1
+    mete 2
+    add
+    valord V2
+    swap
+    sub
+    valori V
+    swap
+    asigna
+    mete 3
+    valord V
+    mul
+    valori Z
+    swap
+    asigna
+    metecad "3*(V-1) es: "
+    valord Z
+    print 2
+    vea LBL3
+LBL2:
+    valori Z
+    valord VAR
+    mete 10
+    add
+    asigna
+    metecad 'VAR + 10 es: '
+    valord Z
+    print 2
+LBL3:
+Ejemplo 2
+Ante una entrada como:
+
+PROGRAMA NESTED-CONTROL-STRUCTURES.
+INICIO
+      * Ejemplo de condicional anidada en un bucle while
+       MUEVE 10 A V1.
+       MUEVE 0 A V2.
+       EJECUTA
+          SI V2 ES MENOR QUE V1 ENTONCES
+            MUESTRA V2.
+          FIN-SI.
+          SUMA 1 A V2.
+       FIN-EJECUTA
+       HASTA-QUE V1 ES IGUAL A V2.
+      * Ejemplo de bucles anidados
+       MUEVE 5 A V1.
+       MUEVE 0 A C.
+       EJECUTA
+           RESTA 1 DE V1.
+           EJECUTA
+             SUMA 2 A C.
+             MUESTRA V1, V2, C.
+           FIN-EJECUTA
+           HASTA-QUE C ES MAYOR QUE 10.
+       FIN-EJECUTA
+       HASTA-QUE V1 ES IGUAL A 0.
+FIN.
+Debería mostrar (excepto quizá el número de las etiquetas):
+
+    mete 10
+    valori V1
+    swap
+    asigna
+    mete 0
+    valori V2
+    swap
+    asigna
+LBL0:
+    valord V2
+    valord V1
+    swap
+    sub
+    sifalsovea LBL2
+    valord V2
+    print 1
+LBL2:
+    mete 1
+    valord V2
+    add
+    valori V2
+    swap
+    asigna
+    valord V1
+    valord V2
+    xor
+    not
+    siciertovea LBL1
+    vea LBL0
+LBL1:
+    mete 5
+    valori V1
+    swap
+    asigna
+    mete 0
+    valori C
+    swap
+    asigna
+LBL3:
+    mete 1
+    valord V1
+    swap
+    sub
+    valori V1
+    swap
+    asigna
+LBL5:
+    mete 2
+    valord C
+    add
+    valori C
+    swap
+    asigna
+    valord V1
+    valord V2
+    valord C
+    print 3
+    valord C
+    mete 10
+    sub
+    siciertovea LBL6
+    vea LBL5
+LBL6:
+    valord V1
+    mete 0
+    xor
+    not
+    siciertovea LBL4
+    vea LBL3
+LBL4:
+Ejemplo 3
+Ante una entrada como:
+
+PROGRAMA EJECUTA-VECES.
+INICIO
+      * Ejemplo de un bucle de repetición limitada
+       LEE N.
+       EJECUTA N VECES USANDO VAR
+         SI VAR ES MAYOR QUE 10
+         ENTONCES
+             MUESTRA VAR.
+         FIN-SI.
+       FIN-EJECUTA.
+FIN.
+Debería mostrar (excepto quizá el número de las etiquetas):
+
+    lee N
+    valori VAR
+    mete 1
+    asigna
+LBL0:
+    valord VAR
+    mete 10
+    sub
+    sifalsovea LBL2
+    valord VAR
+    print 1
+LBL2:
+    valori VAR
+    valord VAR
+    mete 1
+    add
+    asigna
+    valord VAR
+    valord N
+    sub
+    siciertovea LBL1
+    vea LBL0
+LBL1:
+Nota histórica
+COBOL (Common Business-Oriented Language) fue uno de los primeros lenguajes de alto nivel, diseñado específicamente para aplicaciones de negocio. Fue desarrollado en 1959 por un comité conocido como la Conferencia sobre Lenguajes de Sistemas de Datos (CODASYL), bajo la dirección del Departamento de Defensa de los Estados Unidos. Fue creado para resolver problemas relacionados con la gestión de datos en empresas e instituciones, ofreciendo una forma de programar más cercana al lenguaje natural, accesible para personas no especializadas en programación. Su sintaxis está orientada a la descripción de procesos de negocio, lo que facilita la comprensión del código incluso para personas sin experiencia técnica profunda.
+
+A pesar de los avances en la tecnología y el desarrollo de lenguajes más modernos, COBOL ha mantenido su relevancia durante más de seis décadas. Muchas aplicaciones críticas, especialmente en la banca, los seguros y el gobierno, siguen usando COBOL. Se estima que más de 70% de las transacciones empresariales globales todavía son procesadas por sistemas basados en COBOL. Esto incluye sistemas bancarios, cajeros automáticos, y otros sistemas financieros que requieren alta fiabilidad.
+
+Aunque COBOL ha sido considerado anticuado, ha demostrado ser adaptable. Existen versiones modernas del lenguaje que se integran con tecnologías como bases de datos relacionales, interfaces web, y servicios en la nube. A lo largo de los años, COBOL ha evolucionado, pero su estructura sigue siendo muy reconocible y ha influido en el desarrollo de otros lenguajes de programación.
+
+En esta práctica, hemos utilizado una versión simplificada muy libre y castellanizada de COBOL, que implementa algunas de sus características, pero donde se han ignorado un montón de otras características muy típicas de COBOL, tales como la estructura jerárquica (que comprende divisiones, secciones, párrafos, sentencias y verbos), las restricciones respecto a en qué columna tienen que empezar las líneas y la declaración de variables de almacenamiento, que en COBOL es bastante única y distintiva en comparación con los lenguajes de programación modernos.

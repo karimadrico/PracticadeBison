@@ -39,7 +39,7 @@ asignar
   
 
 io
-  : LEER ID '.' /* lectura de variable */
+  : LEE ID '.' /* lectura de variable */
   | MOSTRAR expresion '.' /* mostrar resultado */
   
 
