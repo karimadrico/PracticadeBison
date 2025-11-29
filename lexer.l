@@ -14,10 +14,8 @@
 ^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar línea completa de comentario COBOL */ ; }
 
 /* Comentarios en línea: comienzan con "*>" o "*|" y van hasta el fin de línea */
-\*>[^
-]*    { /* Ignorar comentario que comienza con "*>" */ ; }
-\*\|[^
-]*   { /* Ignorar comentario que comienza con "*|" */ ; }
+*>[^\n]*    { /* Ignorar comentario que comienza con "*>" */ ; }
+\*\|[^\n]*   { /* Ignorar comentario que comienza con "*|" */ ; }
 
 /* Espacios en blanco (incluye saltos de línea) */
 [ \t\r\n]+   { /* Ignorar */ ; }
