@@ -6,11 +6,9 @@
 %option noyywrap
 %%
 [ \t\r\n]+   { /* Ignorar */ ; }
-/* Comentario COBOL (columna 7): seis espacios ASCII seguidos de '*' */
-^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar línea completa de comentario COBOL */ ; }
-/* Comentarios en línea: comienzan con "*>" o "*|" y van hasta el fin de línea */
-*>[^\n]*    { /* Ignorar comentario que comienza con "*>" */ ; }
-\*\|[^\n]*   { /* Ignorar comentario que comienza con "*|" */ ; }
+"      *".*      { /* Ignorar línea completa de comentario COBOL */ ; }
+"*>".*           { /* Ignorar comentario que comienza con "*>" */ ; }
+"*|".*           { /* Ignorar comentario que comienza con "*|" */ ; }
 [ \t\r\n]+   { /* Ignorar */ ; }
 \"[^\"]*\"      { /* yylval.cad = strdup(yytext); */ return CAD; }
 \'[^\']*\'      { /* yylval.cad = strdup(yytext); */ return CAD; }
