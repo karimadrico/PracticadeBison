@@ -1,14 +1,18 @@
+
 %{
-#include <stdio.h>
-// Cabecera para tokens y funciones de cadena
 #include "parser.tab.h"
+#include <stdio.h>
 #include <string.h>
 %}
 %option noyywrap
 %%
 [ \t\r\n]+   { /* Ignorar */ ; }
-
-/* Palabras clave (mayúsculas, antes que ID) */
+^[ ][ ][ ][ ][ ][ ]\*.*    { /* Comentario COBOL columna 7 */ ; }
+\*>[^\n]*    { /* Comentario en línea tipo *> */ ; }
+\*\|[^\n]*   { /* Comentario en línea tipo *| */ ; }
+"[^"\n]*"   { /* yylval.cad = strdup(yytext); */ return CAD; }
+'[^'\n]*'    { /* yylval.cad = strdup(yytext); */ return CAD; }
+[0-9]+       { /* yylval.num = atoi(yytext); */ return NUM; }
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
@@ -21,20 +25,14 @@ MUESTRA      { return MUESTRA; }
 MIENTRAS     { return MIENTRAS; }
 HACER        { return HACER; }
 FINMIENTRAS  { return FINMIENTRAS; }
-
-/* Números positivos */
-[0-9]+       { /* yylval.num = atoi(yytext); */ return NUM; }
-
-/* Identificadores: letra mayúscula, dígitos y guiones, sin guión al inicio/fin */
 [A-Z][A-Z0-9-]* {
-	int L = (int)strlen(yytext);
-	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
-		/* Ignorar identificador inválido */
-	} else {
-		/* yylval.id = strdup(yytext); */ return ID;
-	}
+    int L = (int)strlen(yytext);
+    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
+        /* Ignorar identificador inválido */
+    } else {
+        /* yylval.id = strdup(yytext); */ return ID;
+    }
 }
-
-/* Fallback: cualquier otro carácter */
+\.	{ return '.'; }
 .             { return yytext[0]; }
 %%
