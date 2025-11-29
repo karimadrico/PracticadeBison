@@ -7,6 +7,18 @@
 %option noyywrap
 %%
 [ \t\r\n]+   { /* Ignorar */ ; }
+// Números positivos
+[0-9]+       { /* yylval.num = atoi(yytext); */ return NUM; }
+
+// Identificadores: letra mayúscula, dígitos y guiones, sin guión al inicio/fin
+[A-Z][A-Z0-9-]* {
+	int L = (int)strlen(yytext);
+	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
+		/* Ignorar identificador inválido */
+	} else {
+		/* yylval.id = strdup(yytext); */ return ID;
+	}
+}
 .             { return yytext[0]; }
 // Palabras clave (mayúsculas, antes que ID)
 PROGRAMA     { return PROGRAMA; }
