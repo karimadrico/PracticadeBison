@@ -31,6 +31,7 @@ bucle
 
 comparar
   : SI condicion ENTONCES sentencias FINSI '.' /* estructura básica de condicional */
+    | LEE ID '.' /* lectura de variable */
   
 
 asignar
