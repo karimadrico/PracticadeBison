@@ -28,7 +28,7 @@ int keyword_or_id(void) {
 [0-9]+            { return NUM; }
 
 /* Identificadores y palabras reservadas (mayúsculas) */
-[A-Z]([A-Z0-9-])* { return keyword_or_id(); }
+[A-Z][A-Z0-9-]*   { return keyword_or_id(); }
 
 \.                { return '.'; }
 
@@ -36,7 +36,7 @@ int keyword_or_id(void) {
 [ \t\r\n]+      { /* Ignorar espacios en blanco */ }
 
 /* Comentario COBOL: línea que empieza por 6 espacios y un asterisco */
-"      *"          { /* Ignorar línea completa de comentario COBOL */ }
+"      \*"        { /* Ignorar línea completa de comentario COBOL */ }
 
 /* Comentario de línea: desde *> o *| hasta el final de la línea */
 \*>.*              { /* Ignorar comentario que comienza con "*>" */ }
