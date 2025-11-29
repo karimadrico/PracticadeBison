@@ -8,7 +8,7 @@ int yylex(void);
 void yyerror(const char *s);
 %}
 %token PROGRAMA INICIO FIN ID
-%token NUM MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEER MOSTRAR
+%token NUM CAD MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEER MOSTRAR
 %token '.' /* tratar el punto como token */
 %%
 programa
