@@ -7,6 +7,8 @@
 %option noyywrap
 %%
 [ \t\r\n]+   { /* Ignorar */ ; }
+"[^"\n]*"   { /* yylval.cad = strdup(yytext); */ return CAD; }
+'[^'\n]*'    { /* yylval.cad = strdup(yytext); */ return CAD; }
 ^[ ][ ][ ][ ][ ][ ]\*.*    { /* Comentario COBOL columna 7 */ ; }
 \*>[^\n]*    { /* Comentario en línea tipo *> */ ; }
 \*\|[^\n]*   { /* Comentario en línea tipo *| */ ; }
