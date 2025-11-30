@@ -890,8 +890,19 @@ YY_RULE_SETUP
 #line 26 "lexer.l"
 {
     int L = (int)strlen(yytext);
-    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
-        /* Ignorar identificador inválido */
+    // Lista de palabras reservadas
+    const char *reservadas[] = {
+        "PROGRAMA", "INICIO", "FIN", "DISPLAY", "LEE", "SI", "ENTONCES", "SINO", "MUESTRA", "MIENTRAS", "HACER", "FINMIENTRAS"
+    };
+    int es_reservada = 0;
+    for (int i = 0; i < sizeof(reservadas)/sizeof(reservadas[0]); ++i) {
+        if (strcmp(yytext, reservadas[i]) == 0) {
+            es_reservada = 1;
+            break;
+        }
+    }
+    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
+        /* Ignorar identificador inválido o reservado */
     } else {
         return ID;
     }
@@ -899,20 +910,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 34 "lexer.l"
+#line 45 "lexer.l"
 { return '.'; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 46 "lexer.l"
 { return yytext[0]; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 36 "lexer.l"
+#line 47 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 915 "lex.yy.c"
+#line 926 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1917,5 +1928,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 36 "lexer.l"
+#line 47 "lexer.l"
 
