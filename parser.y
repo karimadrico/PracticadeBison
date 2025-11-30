@@ -7,10 +7,15 @@ extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
 %}
-%token PROGRAMA INICIO FIN ID
-%token NUM CAD MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR
-%token DISPLAY SINO MUESTRA
-%token '.' /* tratar el punto como token */
+%union {
+    int num;
+    char *id;
+    char *cad;
+}
+%token <id> ID
+%token <num> NUM
+%token <cad> CAD
+%token PROGRAMA INICIO FIN MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR DISPLAY SINO MUESTRA '.'
 %%
 programa
   : PROGRAMA ID '.' INICIO sentencias FIN '.'
@@ -45,22 +50,6 @@ expresion
   | expresion '-' expresion
 
 condicion
-  %union {
-    int num;
-    char *id;
-    char *cad;
-  }
-  %token <id> ID
-  %token <num> NUM
-  %token <cad> CAD
-  %union {
-    int num;
-    char *id;
-    char *cad;
-  }
-  %token <id> ID
-  %token <num> NUM
-  %token <cad> CAD
   : expresion '<' expresion
   | expresion '>' expresion
   | expresion '=' expresion

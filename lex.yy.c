@@ -897,6 +897,7 @@ YY_RULE_SETUP
     int es_reservada = 0;
     for (int i = 0; i < sizeof(reservadas)/sizeof(reservadas[0]); ++i) {
         if (strcmp(yytext, reservadas[i]) == 0) {
+    #define YY_DECL int yylex(void)
             es_reservada = 1;
             break;
         }
@@ -910,20 +911,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 45 "lexer.l"
+#line 46 "lexer.l"
 { return '.'; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 46 "lexer.l"
+#line 47 "lexer.l"
 { return yytext[0]; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 47 "lexer.l"
+#line 48 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 926 "lex.yy.c"
+#line 927 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1928,7 +1929,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 47 "lexer.l"
+#line 48 "lexer.l"
 
 // Necesario main de prueba para ver la salida de los tokens cuando compilo con -DTEST_LEXER
 #ifdef TEST_LEXER
