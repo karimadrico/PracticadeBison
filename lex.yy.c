@@ -812,13 +812,13 @@ case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
 #line 11 "lexer.l"
-{ /* yylval.cad = strdup(yytext); */ return CAD; }
+{ yylval.cad = strdup(yytext); return CAD; }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
 #line 12 "lexer.l"
-{ /* yylval.cad = strdup(yytext); */ return CAD; }
+{ yylval.cad = strdup(yytext); return CAD; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
@@ -883,7 +883,7 @@ YY_RULE_SETUP
 case 18:
 YY_RULE_SETUP
 #line 25 "lexer.l"
-{ return NUM; }
+{ yylval.num = atoi(yytext); return NUM; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
@@ -904,7 +904,7 @@ YY_RULE_SETUP
     if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
         /* Ignorar identificador inválido o reservado */
     } else {
-        return ID;
+        yylval.id = strdup(yytext); return ID;
     }
 }
 	YY_BREAK

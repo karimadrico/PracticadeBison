@@ -32,6 +32,7 @@ FINMIENTRAS  { return FINMIENTRAS; }
     int es_reservada = 0;
     for (int i = 0; i < sizeof(reservadas)/sizeof(reservadas[0]); ++i) {
         if (strcmp(yytext, reservadas[i]) == 0) {
+    #define YY_DECL int yylex(void)
             es_reservada = 1;
             break;
         }
