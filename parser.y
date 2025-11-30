@@ -16,6 +16,9 @@ void yyerror(const char *s);
 %token <num> NUM
 %token <cad> CAD
 %token PROGRAMA INICIO FIN MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR DISPLAY SINO MUESTRA '.'
+%left '+' '-'
+%left '<' '>'
+%left '='
 %%
 programa
   : PROGRAMA ID '.' INICIO sentencias FIN '.'
