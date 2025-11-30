@@ -25,8 +25,19 @@ FINMIENTRAS  { return FINMIENTRAS; }
 [0-9]+       { return NUM; }
 [A-Z][A-Z0-9-]* {
     int L = (int)strlen(yytext);
-    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-')) {
-        /* Ignorar identificador inválido */
+    // Lista de palabras reservadas
+    const char *reservadas[] = {
+        "PROGRAMA", "INICIO", "FIN", "DISPLAY", "LEE", "SI", "ENTONCES", "SINO", "MUESTRA", "MIENTRAS", "HACER", "FINMIENTRAS"
+    };
+    int es_reservada = 0;
+    for (int i = 0; i < sizeof(reservadas)/sizeof(reservadas[0]); ++i) {
+        if (strcmp(yytext, reservadas[i]) == 0) {
+            es_reservada = 1;
+            break;
+        }
+    }
+    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
+        /* Ignorar identificador inválido o reservado */
     } else {
         return ID;
     }

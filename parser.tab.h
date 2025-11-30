@@ -66,7 +66,7 @@ extern int yydebug;
     SI = 267,                      /* SI  */
     ENTONCES = 268,                /* ENTONCES  */
     FINSI = 269,                   /* FINSI  */
-    LEER = 270,                    /* LEER  */
+    LEE = 270,                     /* LEE  */
     MOSTRAR = 271,                 /* MOSTRAR  */
     DISPLAY = 272,                 /* DISPLAY  */
     SINO = 273,                    /* SINO  */
