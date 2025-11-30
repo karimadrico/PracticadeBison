@@ -8,8 +8,8 @@
 "      *".*      { /* Ignorar línea completa de comentario COBOL */ ; }
 ("*>".*|"*|".*)   { /* Ignorar comentario en línea */ ; }
 [ \t\r\n]+   { /* Ignorar */ ; }
-\"[^\"]*\"      { /* yylval.cad = strdup(yytext); */ return CAD; }
-\'[^\']*\'      { /* yylval.cad = strdup(yytext); */ return CAD; }
+\"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
+\'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
@@ -22,7 +22,7 @@ MUESTRA      { return MUESTRA; }
 MIENTRAS     { return MIENTRAS; }
 HACER        { return HACER; }
 FINMIENTRAS  { return FINMIENTRAS; }
-[0-9]+       { return NUM; }
+[0-9]+       { yylval.num = atoi(yytext); return NUM; }
 [A-Z][A-Z0-9-]* {
     int L = (int)strlen(yytext);
     // Lista de palabras reservadas
@@ -39,7 +39,7 @@ FINMIENTRAS  { return FINMIENTRAS; }
     if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
         /* Ignorar identificador inválido o reservado */
     } else {
-        return ID;
+        yylval.id = strdup(yytext); return ID;
     }
 }
 \\.            { return '.'; }

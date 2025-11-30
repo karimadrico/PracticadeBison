@@ -1930,3 +1930,13 @@ void yyfree (void * ptr )
 
 #line 47 "lexer.l"
 
+// Necesario main de prueba para ver la salida de los tokens cuando compilo con -DTEST_LEXER
+#ifdef TEST_LEXER
+int main(void) {
+    int token;
+    while ((token = yylex()) != 0) {
+        printf("TOKEN: %d (%s)\\n", token, yytext);
+    }
+    return 0;
+}
+#endif

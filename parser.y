@@ -45,6 +45,14 @@ expresion
   | expresion '-' expresion
 
 condicion
+  %union {
+    int num;
+    char *id;
+    char *cad;
+  }
+  %token <id> ID
+  %token <num> NUM
+  %token <cad> CAD
   : expresion '<' expresion
   | expresion '>' expresion
   | expresion '=' expresion
