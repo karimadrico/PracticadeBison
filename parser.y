@@ -3,6 +3,7 @@
 /* Autor: Karima Drafli Rico */
 %{
 #include <stdio.h>
+#include <stdlib.h>
 extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
@@ -40,22 +41,27 @@ comparar
   : SI condicion ENTONCES sentencias FINSI
 
 asignar
-  : ID '=' expresion
+  : ID '=' expresion {
+        printf("valori %s\n", $1);
+        printf("swap\n");
+        printf("asigna\n");
+        free($1);
+    }
 
 io
-  : LEE ID
-  | MOSTRAR expresion
+  : LEE ID { printf("lee %s\n", $2); free($2); }
+  | MOSTRAR expresion { printf("print 1\n"); }
 
 expresion
-  : ID
-  | NUM
-  | expresion '+' expresion
-  | expresion '-' expresion
+  : ID { printf("valord %s\n", $1); free($1); }
+  | NUM { printf("mete %d\n", $1); }
+  | expresion '+' expresion { printf("add\n"); }
+  | expresion '-' expresion { printf("sub\n"); }
 
 condicion
-  : expresion '<' expresion
-  | expresion '>' expresion
-  | expresion '=' expresion
+  : expresion '<' expresion { printf("sub\n"); }
+  | expresion '>' expresion { printf("sub\n"); }
+  | expresion '=' expresion { printf("sub\n"); }
   
 %%
 void yyerror(const char *s) {
