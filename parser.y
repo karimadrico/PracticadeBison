@@ -1,5 +1,5 @@
 /* parser.y */
-/* Práctica de Bison - Compilador COBOL simplificado */
+/* Práctica de Bison */
 /* Autor: Karima Drafli Rico */
 %{
 #include <stdio.h>
