@@ -7,11 +7,18 @@
 extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
+int etiqueta = 0;
+char lbl_buf[16];
+char* getNumLbl() {
+    sprintf(lbl_buf, "LBL%d", etiqueta++);
+    return lbl_buf;
+}
 %}
 %union {
     int num;
     char *id;
     char *cad;
+    char *lbl;
 }
 %token <id> ID
 %token <num> NUM
@@ -35,10 +42,24 @@ sentencia
   | io '.'
 
 bucle
-  : MIENTRAS condicion HACER sentencias FINMIENTRAS
+  : MIENTRAS condicion HACER sentencias FINMIENTRAS {
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        printf("%s:\n", lbl0);
+        // condición
+        printf("sifalsovea %s\n", lbl1);
+        // cuerpo
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+    }
 
 comparar
-  : SI condicion ENTONCES sentencias FINSI
+  : SI condicion ENTONCES sentencias FINSI {
+        char* lbl0 = getNumLbl();
+        printf("sifalsovea %s\n", lbl0);
+        // cuerpo
+        printf("%s:\n", lbl0);
+    }
 
 asignar
   : ID '=' expresion {
