@@ -44,7 +44,7 @@ sentencia
   | arit '.'
 
 bucle
-  : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
+  : MIENTRAS ID '<' NUM HACER sentencias FINMIENTRAS {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
@@ -137,7 +137,8 @@ listaValores
 
 io
   : LEE ID { printf("lee %s\n", $2); free($2); }
-  | MOSTRAR expresion { printf("valord %s\nprint 1\n", $2); free($2); }
+  | MOSTRAR ID { printf("valord %s\nprint 1\n", $2); free($2); }
+  | MOSTRAR NUM { printf("mete %d\nprint 1\n", $2); }
 
 expresion
   : ID { printf("valord %s\n", $1); free($1); }
