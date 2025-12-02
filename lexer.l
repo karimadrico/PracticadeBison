@@ -22,6 +22,13 @@ MUESTRA      { return MUESTRA; }
 MIENTRAS     { return MIENTRAS; }
 HACER        { return HACER; }
 FINMIENTRAS  { return FINMIENTRAS; }
+[ 	
+]+   { /* Ignorar */ ; }
+SUMA         { return SUMA; }
+RESTA        { return RESTA; }
+MULTIPLICA   { return MULTIPLICA; }
+DIVIDE       { return DIVIDE; }
+DANDO        { return DANDO; }
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
 [A-Z][A-Z0-9-]* {
     int L = (int)strlen(yytext);
@@ -36,11 +43,11 @@ FINMIENTRAS  { return FINMIENTRAS; }
             break;
         }
     }
-    if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
-        /* Ignorar identificador inválido o reservado */
-    } else {
-        yylval.id = strdup(yytext); return ID;
-    }
+        if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
+            /* Ignorar identificador inválido o reservado */
+        } else {
+            yylval.id = strdup(yytext); return ID;
+        }
 }
 \\.            { return '.'; }
 .             { return yytext[0]; }
