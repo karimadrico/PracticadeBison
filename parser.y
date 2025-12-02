@@ -42,6 +42,7 @@ sentencia
   | asignar '.'
   | io '.'
   | arit '.'
+  | io
 
 bucle
   : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
