@@ -70,7 +70,12 @@ extern int yydebug;
     MOSTRAR = 271,                 /* MOSTRAR  */
     DISPLAY = 272,                 /* DISPLAY  */
     SINO = 273,                    /* SINO  */
-    MUESTRA = 274                  /* MUESTRA  */
+    MUESTRA = 274,                 /* MUESTRA  */
+    SUMA = 275,                    /* SUMA  */
+    RESTA = 276,                   /* RESTA  */
+    MULTIPLICA = 277,              /* MULTIPLICA  */
+    DIVIDE = 278,                  /* DIVIDE  */
+    DANDO = 279                    /* DANDO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -86,7 +91,7 @@ union YYSTYPE
     char *cad;
     char *lbl;
 
-#line 90 "parser.tab.h"
+#line 95 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
