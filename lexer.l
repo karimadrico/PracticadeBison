@@ -22,8 +22,6 @@ MUESTRA      { return MUESTRA; }
 MIENTRAS     { return MIENTRAS; }
 HACER        { return HACER; }
 FINMIENTRAS  { return FINMIENTRAS; }
-[ 	
-]+   { /* Ignorar */ ; }
 SUMA         { return SUMA; }
 RESTA        { return RESTA; }
 MULTIPLICA   { return MULTIPLICA; }
