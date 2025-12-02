@@ -24,6 +24,7 @@ char* getNumLbl() {
 %token <num> NUM
 %token <cad> CAD
 %token PROGRAMA INICIO FIN MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR DISPLAY SINO MUESTRA '.'
+%token SUMA RESTA MULTIPLICA DIVIDE DANDO
 %left '+' '-'
 %left '<' '>'
 %left '='
@@ -40,6 +41,7 @@ sentencia
   | comparar '.'
   | asignar '.'
   | io '.'
+  | arit '.'
 
 bucle
   : MIENTRAS condicion HACER sentencias FINMIENTRAS {
@@ -68,6 +70,67 @@ asignar
         printf("asigna\n");
         free($1);
     }
+
+arit
+  : SUMA listaValores DANDO ID {
+        printf("add\n");
+        printf("valori %s\n", $4);
+        printf("swap\n");
+        printf("asigna\n");
+        free($4);
+    }
+  | SUMA listaValores ID {
+        printf("add\n");
+        printf("valori %s\n", $3);
+        printf("swap\n");
+        printf("asigna\n");
+        free($3);
+    }
+  | RESTA listaValores DANDO ID {
+        printf("sub\n");
+        printf("valori %s\n", $4);
+        printf("swap\n");
+        printf("asigna\n");
+        free($4);
+    }
+  | RESTA listaValores ID {
+        printf("sub\n");
+        printf("valori %s\n", $3);
+        printf("swap\n");
+        printf("asigna\n");
+        free($3);
+    }
+  | MULTIPLICA listaValores DANDO ID {
+        printf("mul\n");
+        printf("valori %s\n", $4);
+        printf("swap\n");
+        printf("asigna\n");
+        free($4);
+    }
+  | MULTIPLICA listaValores ID {
+        printf("mul\n");
+        printf("valori %s\n", $3);
+        printf("swap\n");
+        printf("asigna\n");
+        free($3);
+    }
+  | DIVIDE listaValores DANDO ID {
+        printf("div\n");
+        printf("valori %s\n", $4);
+        printf("swap\n");
+        printf("asigna\n");
+        free($4);
+    }
+  | DIVIDE listaValores ID {
+        printf("div\n");
+        printf("valori %s\n", $3);
+        printf("swap\n");
+        printf("asigna\n");
+        free($3);
+    }
+
+listaValores
+  : expresion expresion
 
 io
   : LEE ID { printf("lee %s\n", $2); free($2); }

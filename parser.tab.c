@@ -70,11 +70,18 @@
 #line 4 "parser.y"
 
 #include <stdio.h>
+#include <stdlib.h>
 extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
+int etiqueta = 0;
+char lbl_buf[16];
+char* getNumLbl() {
+    sprintf(lbl_buf, "LBL%d", etiqueta++);
+    return lbl_buf;
+}
 
-#line 78 "parser.tab.c"
+#line 85 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -525,9 +532,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    24,    24,    27,    28,    31,    32,    33,    34,    37,
-      40,    43,    46,    47,    50,    51,    52,    53,    56,    57,
-      58
+       0,    32,    32,    35,    36,    39,    40,    41,    42,    45,
+      57,    65,    73,    74,    77,    78,    79,    80,    83,    84,
+      85
 };
 #endif
 
@@ -1113,8 +1120,99 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 9: /* bucle: MIENTRAS condicion HACER sentencias FINMIENTRAS  */
+#line 45 "parser.y"
+                                                    {
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        printf("%s:\n", lbl0);
+        // condición
+        printf("sifalsovea %s\n", lbl1);
+        // cuerpo
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+    }
+#line 1136 "parser.tab.c"
+    break;
 
-#line 1118 "parser.tab.c"
+  case 10: /* comparar: SI condicion ENTONCES sentencias FINSI  */
+#line 57 "parser.y"
+                                           {
+        char* lbl0 = getNumLbl();
+        printf("sifalsovea %s\n", lbl0);
+        // cuerpo
+        printf("%s:\n", lbl0);
+    }
+#line 1147 "parser.tab.c"
+    break;
+
+  case 11: /* asignar: ID '=' expresion  */
+#line 65 "parser.y"
+                     {
+        printf("valori %s\n", (yyvsp[-2].id));
+        printf("swap\n");
+        printf("asigna\n");
+        free((yyvsp[-2].id));
+    }
+#line 1158 "parser.tab.c"
+    break;
+
+  case 12: /* io: LEE ID  */
+#line 73 "parser.y"
+           { printf("lee %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
+#line 1164 "parser.tab.c"
+    break;
+
+  case 13: /* io: MOSTRAR expresion  */
+#line 74 "parser.y"
+                      { printf("print 1\n"); }
+#line 1170 "parser.tab.c"
+    break;
+
+  case 14: /* expresion: ID  */
+#line 77 "parser.y"
+       { printf("valord %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
+#line 1176 "parser.tab.c"
+    break;
+
+  case 15: /* expresion: NUM  */
+#line 78 "parser.y"
+        { printf("mete %d\n", (yyvsp[0].num)); }
+#line 1182 "parser.tab.c"
+    break;
+
+  case 16: /* expresion: expresion '+' expresion  */
+#line 79 "parser.y"
+                            { printf("add\n"); }
+#line 1188 "parser.tab.c"
+    break;
+
+  case 17: /* expresion: expresion '-' expresion  */
+#line 80 "parser.y"
+                            { printf("sub\n"); }
+#line 1194 "parser.tab.c"
+    break;
+
+  case 18: /* condicion: expresion '<' expresion  */
+#line 83 "parser.y"
+                            { printf("sub\n"); }
+#line 1200 "parser.tab.c"
+    break;
+
+  case 19: /* condicion: expresion '>' expresion  */
+#line 84 "parser.y"
+                            { printf("sub\n"); }
+#line 1206 "parser.tab.c"
+    break;
+
+  case 20: /* condicion: expresion '=' expresion  */
+#line 85 "parser.y"
+                            { printf("sub\n"); }
+#line 1212 "parser.tab.c"
+    break;
+
+
+#line 1216 "parser.tab.c"
 
       default: break;
     }
@@ -1307,7 +1405,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 60 "parser.y"
+#line 87 "parser.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Error de sintaxis: %s\n", s);
