@@ -30,7 +30,7 @@ MULTIPLICA   { return MULTIPLICA; }
 DIVIDE       { return DIVIDE; }
 DANDO        { return DANDO; }
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
-([A-Z][A-Z0-9]*(-[A-Z0-9]+)*) {
+[A-Z]([A-Z0-9]*(-[A-Z0-9]+)*)? {
     int L = (int)strlen(yytext);
     // Lista de palabras reservadas
     const char *reservadas[] = {
