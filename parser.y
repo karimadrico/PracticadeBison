@@ -44,18 +44,16 @@ sentencia
   | arit '.'
 
 bucle
-  : MIENTRAS ID '<' NUM HACER sentencias FINMIENTRAS {
+  : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
-        printf("valord %s\n", $2);
-        printf("mete %d\n", $4);
+        // evalúa la condición
         printf("sub\n");
         printf("sifalsovea %s\n", lbl1);
         // cuerpo
         printf("vea %s\n", lbl0);
         printf("%s:\n", lbl1);
-        free($2);
     }
 
 comparar
