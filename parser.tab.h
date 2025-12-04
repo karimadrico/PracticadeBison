@@ -54,28 +54,30 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    ID = 258,                      /* ID  */
-    NUM = 259,                     /* NUM  */
+    NUM = 258,                     /* NUM  */
+    ID = 259,                      /* ID  */
     CAD = 260,                     /* CAD  */
     PROGRAMA = 261,                /* PROGRAMA  */
     INICIO = 262,                  /* INICIO  */
     FIN = 263,                     /* FIN  */
-    MIENTRAS = 264,                /* MIENTRAS  */
-    HACER = 265,                   /* HACER  */
-    FINMIENTRAS = 266,             /* FINMIENTRAS  */
-    SI = 267,                      /* SI  */
-    ENTONCES = 268,                /* ENTONCES  */
-    FINSI = 269,                   /* FINSI  */
-    LEE = 270,                     /* LEE  */
-    MOSTRAR = 271,                 /* MOSTRAR  */
-    DISPLAY = 272,                 /* DISPLAY  */
-    SINO = 273,                    /* SINO  */
-    MUESTRA = 274,                 /* MUESTRA  */
-    SUMA = 275,                    /* SUMA  */
-    RESTA = 276,                   /* RESTA  */
-    MULTIPLICA = 277,              /* MULTIPLICA  */
-    DIVIDE = 278,                  /* DIVIDE  */
-    DANDO = 279                    /* DANDO  */
+    LEE = 264,                     /* LEE  */
+    MOSTRAR = 265,                 /* MOSTRAR  */
+    SI = 266,                      /* SI  */
+    ENTONCES = 267,                /* ENTONCES  */
+    SINO = 268,                    /* SINO  */
+    MIENTRAS = 269,                /* MIENTRAS  */
+    HACER = 270,                   /* HACER  */
+    FINMIENTRAS = 271,             /* FINMIENTRAS  */
+    EJECUTA = 272,                 /* EJECUTA  */
+    VECES = 273,                   /* VECES  */
+    USANDO = 274,                  /* USANDO  */
+    FIN_EJECUTA = 275,             /* FIN_EJECUTA  */
+    FINSI = 276,                   /* FINSI  */
+    SUMA = 277,                    /* SUMA  */
+    RESTA = 278,                   /* RESTA  */
+    MULTIPLICA = 279,              /* MULTIPLICA  */
+    DIVIDE = 280,                  /* DIVIDE  */
+    DANDO = 281                    /* DANDO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -84,14 +86,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "parser.y"
+#line 11 "parser.y"
 
-    int num;
-    char *id;
-    char *cad;
-    char *lbl;
+  int num;
+  char *id;
+  char *cad;
 
-#line 95 "parser.tab.h"
+#line 96 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
