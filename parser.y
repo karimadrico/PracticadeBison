@@ -1,44 +1,58 @@
 /* parser.y */
-/* Práctica de Bison */
-/* Autor: Karima Drafli Rico */
-%{
-#include <stdio.h>
-#include <stdlib.h>
-extern FILE *yyin;
-int yylex(void);
-void yyerror(const char *s);
-int etiqueta = 0;
-char lbl_buf[16];
-char* getNumLbl() {
-    sprintf(lbl_buf, "LBL%d", etiqueta++);
-    return lbl_buf;
-}
-%}
-%union {
-    char *id;
-    char *cad;
-    char *lbl;
-}
-%token <id> ID
-%token <num> NUM
-%token <cad> CAD
-%token PROGRAMA INICIO FIN MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR DISPLAY SINO MUESTRA '.'
-%token SUMA RESTA MULTIPLICA DIVIDE DANDO
-%left '+' '-'
+        printf("asigna\n");
+        // Cuerpo del bucle
+        // ...sentencias...
+        // Incrementa el contador
+        printf("valori %s\n", $5);
+        printf("valord %s\n", $5);
+        printf("mete 1\n");
+        printf("add\n");
+        printf("asigna\n");
+        // Condición de salida
+        printf("valord %s\n", $5);
   : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
-%left '<' '>'
-%left '='
-%%
-programa
-  : PROGRAMA ID '.' INICIO sentencias FIN '.'
-
-sentencias
-  : sentencia
-  | sentencias sentencia
-
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        printf("%s:\n", lbl0);
+        // evalúa la condición
+        printf("sub\n");
+        printf("sifalsovea %s\n", lbl1);
+        // cuerpo
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+    }
   | EJECUTA NUM VECES USANDO ID sentencias FINMIENTRAS {
-    char* lbl0 = getNumLbl();
-    char* lbl1 = getNumLbl();
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        // Inicializa el contador
+        printf("valori %s\n", $5);
+        printf("mete 1\n");
+        printf("asigna\n");
+        printf("%s:\n", lbl0);
+        // Cuerpo del bucle
+        // ...sentencias...
+        // Incrementa el contador
+        printf("valori %s\n", $5);
+        printf("valord %s\n", $5);
+        printf("mete 1\n");
+        printf("add\n");
+        printf("asigna\n");
+        // Condición de salida
+        printf("valord %s\n", $5);
+        printf("valord %d\n", $2);
+        printf("sub\n");
+        printf("siciertovea %s\n", lbl1);
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+        free($5);
+    }
+        printf("valord %d\n", $2);
+        printf("sub\n");
+        printf("siciertovea %s\n", lbl1);
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+        free($5);
+    }
     // Inicializa el contador
     printf("valori %s\n", $5);
     printf("mete 1\n");
