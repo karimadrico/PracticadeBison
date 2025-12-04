@@ -1,16 +1,5 @@
 /* parser.y */
-        printf("asigna\n");
-        // Cuerpo del bucle
-        // ...sentencias...
-        // Incrementa el contador
-        printf("valori %s\n", $5);
-        printf("valord %s\n", $5);
-        printf("mete 1\n");
-        printf("add\n");
-        printf("asigna\n");
-        // Condición de salida
-        printf("valord %s\n", $5);
-  : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
+        : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
@@ -21,60 +10,6 @@
         printf("vea %s\n", lbl0);
         printf("%s:\n", lbl1);
     }
-  | EJECUTA NUM VECES USANDO ID sentencias FINMIENTRAS {
-        char* lbl0 = getNumLbl();
-        char* lbl1 = getNumLbl();
-        // Inicializa el contador
-        printf("valori %s\n", $5);
-        printf("mete 1\n");
-        printf("asigna\n");
-        printf("%s:\n", lbl0);
-        // Cuerpo del bucle
-        // ...sentencias...
-        // Incrementa el contador
-        printf("valori %s\n", $5);
-        printf("valord %s\n", $5);
-        printf("mete 1\n");
-        printf("add\n");
-        printf("asigna\n");
-        // Condición de salida
-        printf("valord %s\n", $5);
-        printf("valord %d\n", $2);
-        printf("sub\n");
-        printf("siciertovea %s\n", lbl1);
-        printf("vea %s\n", lbl0);
-        printf("%s:\n", lbl1);
-        free($5);
-    }
-        printf("valord %d\n", $2);
-        printf("sub\n");
-        printf("siciertovea %s\n", lbl1);
-        printf("vea %s\n", lbl0);
-        printf("%s:\n", lbl1);
-        free($5);
-    }
-    // Inicializa el contador
-    printf("valori %s\n", $5);
-    printf("mete 1\n");
-    printf("asigna\n");
-    printf("%s:\n", lbl0);
-    // Cuerpo del bucle
-    // ...sentencias...
-    // Incrementa el contador
-    printf("valori %s\n", $5);
-    printf("valord %s\n", $5);
-    printf("mete 1\n");
-    printf("add\n");
-    printf("asigna\n");
-    // Condición de salida
-    printf("valord %s\n", $5);
-    printf("valord %d\n", $2);
-    printf("sub\n");
-    printf("siciertovea %s\n", lbl1);
-    printf("vea %s\n", lbl0);
-    printf("%s:\n", lbl1);
-    free($5);
-  }
 sentencia
   : bucle '.'
   | comparar '.'
@@ -190,7 +125,7 @@ condicion
   
 %%
 void yyerror(const char *s) {
-    fprintf(stderr, "Error de sintaxis: %s\n", s);
+  fprintf(stderr, "Error de sintaxis: %s\n", s);
 }
 int main(int argc, char *argv[]) {
   if (argc > 1) {
