@@ -1,23 +1,65 @@
-/* parser.y */
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+extern FILE *yyin;
+int yylex(void);
+void yyerror(const char *s);
+char *getNumLbl(void);
+%}
+
+%union {
+  int num;
+  char *id;
+  char *cad;
+}
+
+%token <num> NUM
+%token <id> ID
+%token <cad> CAD
+
+%token PROGRAMA INICIO FIN
+%token LEE MOSTRAR SI ENTONCES SINO
+%token MIENTRAS HACER FINMIENTRAS
+%token EJECUTA VECES USANDO FIN_EJECUTA
+%token SUMA RESTA MULTIPLICA DIVIDE DANDO
+
+%left '+' '-'
+%left '*' '/'
+
+%start programa
+
+%%
+
+programa
+  : PROGRAMA ID '.' INICIO sentencias FIN '.'
+  ;
+
+sentencias
+  : /* vacío */
+  | sentencias sentencia
+  ;
+
 sentencia
   : bucle '.'
   | comparar '.'
   | asignar '.'
   | io '.'
   | arit '.'
+  ;
 
-  : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
+bucle
+  : MIENTRAS condicion HACER sentencias FINMIENTRAS {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
-        // evalúa la condición
-        printf("sub\n");
+        // evalúa la condición (la acción de condicion ya genera el código necesario)
         printf("sifalsovea %s\n", lbl1);
         // cuerpo
         printf("vea %s\n", lbl0);
         printf("%s:\n", lbl1);
     }
-  | EJECUTA NUM VECES USANDO ID sentencias FINMIENTRAS {
+  | EJECUTA NUM VECES USANDO ID sentencias FIN_EJECUTA {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         // Inicializa el contador
@@ -25,7 +67,7 @@ sentencia
         printf("mete 1\n");
         printf("asigna\n");
         printf("%s:\n", lbl0);
-        // Aquí iría el cuerpo del bucle (sentencias)
+        // ...cuerpo del bucle...
         // Incrementa el contador
         printf("valori %s\n", $5);
         printf("valord %s\n", $5);
@@ -41,22 +83,25 @@ sentencia
         printf("%s:\n", lbl1);
         free($5);
     }
+  ;
 
 comparar
-  : SI condicion ENTONCES sentencias FINSI {
-        char* lbl0 = getNumLbl();
-        printf("sifalsovea %s\n", lbl0);
-        // cuerpo
-        printf("%s:\n", lbl0);
+  : SI condicion ENTONCES sentencias SINO sentencias FINSI {
+      /* caso SI ... SINO ... FINSI */
     }
+  | SI condicion ENTONCES sentencias FINSI {
+      /* caso SI ... FINSI */
+    }
+  ;
 
 asignar
   : ID '=' expresion {
-        printf("valori %s\n", $1);
-        printf("swap\n");
-        printf("asigna\n");
-        free($1);
+      printf("valori %s\n", $1);
+      printf("swap\n");
+      printf("asigna\n");
+      free($1);
     }
+  ;
 
 arit
   : SUMA listaValores DANDO ID {
@@ -115,30 +160,46 @@ arit
         printf("asigna\n");
         free($3);
     }
+  ;
 
 listaValores
   : expresion expresion
+  ;
 
 io
   : LEE ID { printf("lee %s\n", $2); free($2); }
   | MOSTRAR ID { printf("valord %s\nprint 1\n", $2); free($2); }
   | MOSTRAR NUM { printf("mete %d\nprint 1\n", $2); }
+  ;
 
 expresion
   : ID { printf("valord %s\n", $1); free($1); }
   | NUM { printf("mete %d\n", $1); }
   | expresion '+' expresion { printf("add\n"); }
   | expresion '-' expresion { printf("sub\n"); }
+  ;
 
 condicion
   : expresion '<' expresion { printf("sub\n"); }
   | expresion '>' expresion { printf("sub\n"); }
   | expresion '=' expresion { printf("sub\n"); }
+  ;
 
 %%
+
 void yyerror(const char *s) {
   fprintf(stderr, "Error de sintaxis: %s\n", s);
 }
+
+/* Generador simple de etiquetas */
+char *getNumLbl(void) {
+  static int cnt = 0;
+  char *buf = malloc(16);
+  if (!buf) return NULL;
+  sprintf(buf, "LBL%d", cnt++);
+  return buf;
+}
+
 int main(int argc, char *argv[]) {
   if (argc > 1) {
     FILE *f = fopen(argv[1], "r");
