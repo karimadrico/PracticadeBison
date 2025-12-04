@@ -15,7 +15,6 @@ char* getNumLbl() {
 }
 %}
 %union {
-    int num;
     char *id;
     char *cad;
     char *lbl;
@@ -26,6 +25,7 @@ char* getNumLbl() {
 %token PROGRAMA INICIO FIN MIENTRAS HACER FINMIENTRAS SI ENTONCES FINSI LEE MOSTRAR DISPLAY SINO MUESTRA '.'
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 %left '+' '-'
+  : MIENTRAS expresion '<' expresion HACER sentencias FINMIENTRAS {
 %left '<' '>'
 %left '='
 %%
@@ -36,6 +36,31 @@ sentencias
   : sentencia
   | sentencias sentencia
 
+  | EJECUTA NUM VECES USANDO ID sentencias FINMIENTRAS {
+    char* lbl0 = getNumLbl();
+    char* lbl1 = getNumLbl();
+    // Inicializa el contador
+    printf("valori %s\n", $5);
+    printf("mete 1\n");
+    printf("asigna\n");
+    printf("%s:\n", lbl0);
+    // Cuerpo del bucle
+    // ...sentencias...
+    // Incrementa el contador
+    printf("valori %s\n", $5);
+    printf("valord %s\n", $5);
+    printf("mete 1\n");
+    printf("add\n");
+    printf("asigna\n");
+    // Condición de salida
+    printf("valord %s\n", $5);
+    printf("valord %d\n", $2);
+    printf("sub\n");
+    printf("siciertovea %s\n", lbl1);
+    printf("vea %s\n", lbl0);
+    printf("%s:\n", lbl1);
+    free($5);
+  }
 sentencia
   : bucle '.'
   | comparar '.'
