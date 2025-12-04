@@ -10,23 +10,22 @@
 [ \t\r\n]+   { /* Ignorar */ ; }
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
-PROGRAMA     { return PROGRAMA; }
-INICIO       { return INICIO; }
-FIN          { return FIN; }
-DISPLAY      { return DISPLAY; }
-LEE          { return LEE; }
-SI           { return SI; }
-ENTONCES     { return ENTONCES; }
-SINO         { return SINO; }
-MUESTRA      { return MUESTRA; }
-MIENTRAS     { return MIENTRAS; }
-HACER        { return HACER; }
-FINMIENTRAS  { return FINMIENTRAS; }
-SUMA         { return SUMA; }
-RESTA        { return RESTA; }
-MULTIPLICA   { return MULTIPLICA; }
-DIVIDE       { return DIVIDE; }
-DANDO        { return DANDO; }
+[PROGRAMA]     { return PROGRAMA; }      // Inicio de programa
+[INICIO]       { return INICIO; }        // Inicio de bloque principal
+[FIN]          { return FIN; }           // Fin de programa
+[LEE]          { return LEE; }           // Leer valor
+[MUESTRA]      { return MUESTRA; }       // Mostrar valor
+[SI]           { return SI; }            // Condicional
+[ENTONCES]     { return ENTONCES; }      // Rama verdadera
+[SINO]         { return SINO; }          // Rama falsa
+[MIENTRAS]     { return MIENTRAS; }      // Bucle tipo while
+[HACER]        { return HACER; }         // Inicio de bloque de bucle
+[FINMIENTRAS]  { return FINMIENTRAS; }   // Fin de bucle while
+[SUMA]         { return SUMA; }          // Suma aritmética
+[RESTA]        { return RESTA; }         // Resta aritmética
+[MULTIPLICA]   { return MULTIPLICA; }    // Multiplicación aritmética
+[DIVIDE]       { return DIVIDE; }        // División aritmética
+[DANDO]        { return DANDO; }         // Clausula DANDO
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
 [A-Z]([A-Z0-9]*(-[A-Z0-9]+)*)? {
     int L = (int)strlen(yytext);
