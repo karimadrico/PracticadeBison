@@ -17,7 +17,8 @@
 
 /* Comentarios en línea: comienzan con "*>" o "*|" y van hasta el fin de línea */
 *>[^\n]*    { /* Ignorar comentario que comienza con "*>" */ ; }
-\*\|[^\n]*   { /* Ignorar comentario que comienza con "*|" */ ; }
+/* Comentarios en línea: comienzan con "*>" y van hasta el fin de línea */
+*>[^\n]*    { /* Ignorar comentario que comienza con "*>" */ ; }
 
 /* Espacios en blanco (incluye saltos de línea) */
 [ \t\r\n]+   { /* Ignorar */ ; }

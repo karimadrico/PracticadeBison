@@ -32,7 +32,7 @@ print, que extrae los n siguientes elementos de la pila, imprimiéndolos en orde
 xor, realiza la operación XOR entre el elemento en el tope de la pila y el elemento en tope - 1, dejando el resultado en el tope. Útil para comprobar si los elementos en tope y tope - 1 son iguales, si son iguales, tras usar este operador, los dos elementos en tope y tope - 1 se habrán sustituido por 0.
 not, sustituye el elemento del tope de pila, por 1 si es 0, por 0 es caso contrario.
 swap, intercambia el elemento de tope de pila con el elemento en tope - 1. Esta nueva instrucción es necesaria porque para algunas operaciones de este lenguaje inventado el identificador donde se almacena el valor calculado aparece al final de la instrucción por después de la expresión para calcular su valor (ver los ejemplos de generación de código más adelante).
-El traductor desarrollado debe ser capaz tanto de leer de la entrada estándar (teclado) como de leer del archivo cuyo nombre se le pase por argumento. Los nombres de los tóquenes deben empezar con el prefijo «tk». Los no terminales deben terminar con el sufijo «_NT».
+
 
 Los diagramas de trenes para los elementos del lenguaje son:
 

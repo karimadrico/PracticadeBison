@@ -24,13 +24,11 @@
 /* Comentario COBOL: línea que empieza por 6 espacios y asterisco */
 ^      \*.*        { /* ignore full COBOL comment line */ }
 
-/* Comentario de línea: desde *> o *| hasta fin de línea */
-\*>[^
 ]*          { /* ignore comment starting with "*>" */ }
-\*\|[^
 ]*        { /* ignore comment starting with "*|" */ }
-
 .                 { return yytext[0]; }
+/* Comentario de línea: desde *> hasta fin de línea */
+\*>[^\n]*          { /* ignore comment starting with "*>" */ }
 
 %%
 
