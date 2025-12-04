@@ -16,6 +16,11 @@ char* getNumLbl() {
 %}
 %union {
     int num;
+io
+  : LEE ID { printf("lee %s\n", $2); free($2); }
+  | MUESTRA ID { printf("valord %s\nprint 1\n", $2); free($2); }
+  | MUESTRA NUM { printf("mete %d\nprint 1\n", $2); }
+
     char *id;
     char *cad;
     char *lbl;
