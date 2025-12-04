@@ -28,6 +28,8 @@ EJECUTA      { return EJECUTA; }
 VECES        { return VECES; }
 USANDO       { return USANDO; }
 FIN-EJECUTA  { return FIN_EJECUTA; }
+FINSI        { return FINSI; }
+"FIN-SI"     { return FINSI; }
 SUMA         { return SUMA; }
 RESTA        { return RESTA; }
 MULTIPLICA   { return MULTIPLICA; }
