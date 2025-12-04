@@ -8,7 +8,6 @@
 %%
 "      *".*      { /* Ignorar línea completa de comentario COBOL */ ; }
 "*>".*         { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
-"*|".*         { /* Ignorar comentario en línea iniciando con '*|' */ ; }
 [ \t\r\n]+   { /* Ignorar espacios y saltos de línea */ ; }
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
@@ -30,6 +29,7 @@ USANDO       { return USANDO; }
 FIN-EJECUTA  { return FIN_EJECUTA; }
 FINSI        { return FINSI; }
 "FIN-SI"     { return FINSI; }
+"HASTA-QUE"  { return HASTAQUE; }
 SUMA         { return SUMA; }
 RESTA        { return RESTA; }
 MULTIPLICA   { return MULTIPLICA; }

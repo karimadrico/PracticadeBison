@@ -23,6 +23,7 @@ char *getNumLbl(void);
 %token MIENTRAS HACER FINMIENTRAS
 %token EJECUTA VECES USANDO FIN_EJECUTA
 %token FINSI
+%token HASTAQUE
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 
 %left '+' '-'
@@ -170,6 +171,7 @@ listaValores
 io
   : LEE ID { printf("lee %s\n", $2); free($2); }
   | MOSTRAR ID { printf("valord %s\nprint 1\n", $2); free($2); }
+  | MOSTRAR CAD { printf("metecad %s\n", $2); printf("print 1\n"); free($2); }
   | MOSTRAR NUM { printf("mete %d\nprint 1\n", $2); }
   ;
 
@@ -183,7 +185,7 @@ expresion
 condicion
   : expresion '<' expresion { printf("sub\n"); }
   | expresion '>' expresion { printf("sub\n"); }
-  | expresion '=' expresion { printf("sub\n"); }
+  | expresion '=' expresion { printf("xor\nnot\n"); }
   ;
 
 %%
