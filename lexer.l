@@ -47,7 +47,7 @@ A            { return A; }
 DE           { return DE; }
 COMO         { return COMO; }
 POR          { return POR; }
-','          { return ','; }
+","          { return ','; }
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
 [A-Z]([A-Z0-9\-]*)? {
     int L = (int)strlen(yytext);
