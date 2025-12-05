@@ -556,12 +556,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    41,    41,    45,    46,    50,    51,    52,    53,    54,
-      58,    68,    93,   107,   110,   116,   122,   128,   134,   144,
-     151,   158,   165,   172,   179,   186,   193,   200,   207,   214,
-     221,   228,   235,   242,   249,   256,   263,   270,   277,   287,
-     291,   292,   298,   299,   304,   305,   306,   307,   308,   309,
-     310,   314,   315,   316,   317,   318,   319
+       0,    43,    43,    47,    48,    52,    53,    54,    55,    56,
+      60,    70,    95,   109,   112,   118,   124,   130,   136,   146,
+     153,   160,   167,   174,   181,   188,   195,   202,   209,   216,
+     223,   230,   237,   244,   251,   258,   265,   272,   279,   289,
+     293,   294,   300,   301,   306,   307,   308,   309,   310,   311,
+     312,   316,   317,   318,   319,   320,   321
 };
 #endif
 
@@ -1228,7 +1228,7 @@ yyreduce:
   switch (yyn)
     {
   case 10: /* bucle: MIENTRAS condicion HACER sentencias FINMIENTRAS  */
-#line 58 "parser.y"
+#line 60 "parser.y"
                                                     {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
@@ -1243,7 +1243,7 @@ yyreduce:
     break;
 
   case 11: /* bucle: EJECUTA NUM VECES USANDO ID sentencias FIN_EJECUTA  */
-#line 68 "parser.y"
+#line 70 "parser.y"
                                                        {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
@@ -1272,7 +1272,7 @@ yyreduce:
     break;
 
   case 12: /* bucle: EJECUTA sentencias FIN_EJECUTA HASTAQUE condicion  */
-#line 93 "parser.y"
+#line 95 "parser.y"
                                                       {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
@@ -1288,7 +1288,7 @@ yyreduce:
     break;
 
   case 13: /* comparar: SI condicion ENTONCES sentencias SINO sentencias FINSI  */
-#line 107 "parser.y"
+#line 109 "parser.y"
                                                            {
       /* caso SI ... SINO ... FINSI */
     }
@@ -1296,7 +1296,7 @@ yyreduce:
     break;
 
   case 14: /* comparar: SI condicion ENTONCES sentencias FINSI  */
-#line 110 "parser.y"
+#line 112 "parser.y"
                                            {
       /* caso SI ... FINSI */
     }
@@ -1304,7 +1304,7 @@ yyreduce:
     break;
 
   case 15: /* asignar: ID '=' expresion  */
-#line 116 "parser.y"
+#line 118 "parser.y"
                      {
       printf("valori %s\n", (yyvsp[-2].id));
       printf("swap\n");
@@ -1315,7 +1315,7 @@ yyreduce:
     break;
 
   case 16: /* asignar: CALCULA ID '=' expresion FIN_CALCULA  */
-#line 122 "parser.y"
+#line 124 "parser.y"
                                          {
       printf("valori %s\n", (yyvsp[-3].id));
       printf("swap\n");
@@ -1326,7 +1326,7 @@ yyreduce:
     break;
 
   case 17: /* asignar: CALCULA ID COMO expresion  */
-#line 128 "parser.y"
+#line 130 "parser.y"
                               {
       printf("valori %s\n", (yyvsp[-2].id));
       printf("swap\n");
@@ -1337,7 +1337,7 @@ yyreduce:
     break;
 
   case 18: /* asignar: MUEVE NUM A ID  */
-#line 134 "parser.y"
+#line 136 "parser.y"
                    {
       printf("mete %d\n", (yyvsp[-2].num));
       printf("valori %s\n", (yyvsp[0].id));
@@ -1349,7 +1349,7 @@ yyreduce:
     break;
 
   case 19: /* arit: SUMA listaValores DANDO ID  */
-#line 144 "parser.y"
+#line 146 "parser.y"
                                {
         printf("add\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1361,7 +1361,7 @@ yyreduce:
     break;
 
   case 20: /* arit: SUMA listaValores ID  */
-#line 151 "parser.y"
+#line 153 "parser.y"
                          {
         printf("add\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1373,7 +1373,7 @@ yyreduce:
     break;
 
   case 21: /* arit: SUMA listaValores DE ID  */
-#line 158 "parser.y"
+#line 160 "parser.y"
                             {
         printf("add\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1385,7 +1385,7 @@ yyreduce:
     break;
 
   case 22: /* arit: SUMA listaValores A ID  */
-#line 165 "parser.y"
+#line 167 "parser.y"
                            {
         printf("add\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1397,7 +1397,7 @@ yyreduce:
     break;
 
   case 23: /* arit: SUMA listaValores POR ID  */
-#line 172 "parser.y"
+#line 174 "parser.y"
                              {
         printf("add\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1409,7 +1409,7 @@ yyreduce:
     break;
 
   case 24: /* arit: RESTA listaValores DANDO ID  */
-#line 179 "parser.y"
+#line 181 "parser.y"
                                 {
         printf("sub\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1421,7 +1421,7 @@ yyreduce:
     break;
 
   case 25: /* arit: RESTA listaValores ID  */
-#line 186 "parser.y"
+#line 188 "parser.y"
                           {
         printf("sub\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1433,7 +1433,7 @@ yyreduce:
     break;
 
   case 26: /* arit: RESTA listaValores DE ID  */
-#line 193 "parser.y"
+#line 195 "parser.y"
                              {
         printf("sub\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1445,7 +1445,7 @@ yyreduce:
     break;
 
   case 27: /* arit: RESTA listaValores A ID  */
-#line 200 "parser.y"
+#line 202 "parser.y"
                             {
         printf("sub\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1457,7 +1457,7 @@ yyreduce:
     break;
 
   case 28: /* arit: RESTA listaValores POR ID  */
-#line 207 "parser.y"
+#line 209 "parser.y"
                               {
         printf("sub\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1469,7 +1469,7 @@ yyreduce:
     break;
 
   case 29: /* arit: MULTIPLICA listaValores DANDO ID  */
-#line 214 "parser.y"
+#line 216 "parser.y"
                                      {
         printf("mul\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1481,7 +1481,7 @@ yyreduce:
     break;
 
   case 30: /* arit: MULTIPLICA listaValores ID  */
-#line 221 "parser.y"
+#line 223 "parser.y"
                                {
         printf("mul\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1493,7 +1493,7 @@ yyreduce:
     break;
 
   case 31: /* arit: MULTIPLICA listaValores DE ID  */
-#line 228 "parser.y"
+#line 230 "parser.y"
                                   {
         printf("mul\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1505,7 +1505,7 @@ yyreduce:
     break;
 
   case 32: /* arit: MULTIPLICA listaValores A ID  */
-#line 235 "parser.y"
+#line 237 "parser.y"
                                  {
         printf("mul\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1517,7 +1517,7 @@ yyreduce:
     break;
 
   case 33: /* arit: MULTIPLICA listaValores POR ID  */
-#line 242 "parser.y"
+#line 244 "parser.y"
                                    {
         printf("mul\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1529,7 +1529,7 @@ yyreduce:
     break;
 
   case 34: /* arit: DIVIDE listaValores DANDO ID  */
-#line 249 "parser.y"
+#line 251 "parser.y"
                                  {
         printf("div\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1541,7 +1541,7 @@ yyreduce:
     break;
 
   case 35: /* arit: DIVIDE listaValores ID  */
-#line 256 "parser.y"
+#line 258 "parser.y"
                            {
         printf("div\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1553,7 +1553,7 @@ yyreduce:
     break;
 
   case 36: /* arit: DIVIDE listaValores DE ID  */
-#line 263 "parser.y"
+#line 265 "parser.y"
                               {
         printf("div\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1565,7 +1565,7 @@ yyreduce:
     break;
 
   case 37: /* arit: DIVIDE listaValores A ID  */
-#line 270 "parser.y"
+#line 272 "parser.y"
                              {
         printf("div\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1577,7 +1577,7 @@ yyreduce:
     break;
 
   case 38: /* arit: DIVIDE listaValores POR ID  */
-#line 277 "parser.y"
+#line 279 "parser.y"
                                {
         printf("div\n");
         printf("valori %s\n", (yyvsp[0].id));
@@ -1589,103 +1589,103 @@ yyreduce:
     break;
 
   case 40: /* io: LEE ID  */
-#line 291 "parser.y"
+#line 293 "parser.y"
            { printf("lee %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
 #line 1595 "parser.tab.c"
     break;
 
   case 41: /* io: MOSTRAR listaExpresiones  */
-#line 292 "parser.y"
+#line 294 "parser.y"
                              { printf("print %d\n", (yyvsp[0].num)); }
 #line 1601 "parser.tab.c"
     break;
 
   case 42: /* listaExpresiones: expresion  */
-#line 298 "parser.y"
+#line 300 "parser.y"
               { (yyval.num) = 1; }
 #line 1607 "parser.tab.c"
     break;
 
   case 43: /* listaExpresiones: listaExpresiones ',' expresion  */
-#line 299 "parser.y"
+#line 301 "parser.y"
                                    { (yyval.num) = (yyvsp[-2].num) + 1; }
 #line 1613 "parser.tab.c"
     break;
 
   case 44: /* expresion: ID  */
-#line 304 "parser.y"
+#line 306 "parser.y"
        { printf("valord %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
 #line 1619 "parser.tab.c"
     break;
 
   case 45: /* expresion: NUM  */
-#line 305 "parser.y"
+#line 307 "parser.y"
         { printf("mete %d\n", (yyvsp[0].num)); }
 #line 1625 "parser.tab.c"
     break;
 
   case 46: /* expresion: CAD  */
-#line 306 "parser.y"
+#line 308 "parser.y"
         { printf("metecad %s\n", (yyvsp[0].cad)); free((yyvsp[0].cad)); }
 #line 1631 "parser.tab.c"
     break;
 
   case 47: /* expresion: expresion '*' expresion  */
-#line 307 "parser.y"
+#line 309 "parser.y"
                             { printf("mul\n"); }
 #line 1637 "parser.tab.c"
     break;
 
   case 48: /* expresion: expresion '/' expresion  */
-#line 308 "parser.y"
+#line 310 "parser.y"
                             { printf("div\n"); }
 #line 1643 "parser.tab.c"
     break;
 
   case 49: /* expresion: expresion '+' expresion  */
-#line 309 "parser.y"
+#line 311 "parser.y"
                             { printf("add\n"); }
 #line 1649 "parser.tab.c"
     break;
 
   case 50: /* expresion: expresion '-' expresion  */
-#line 310 "parser.y"
+#line 312 "parser.y"
                             { printf("sub\n"); }
 #line 1655 "parser.tab.c"
     break;
 
   case 51: /* condicion: expresion ES IGUAL A expresion  */
-#line 314 "parser.y"
+#line 316 "parser.y"
                                    { printf("valord %s\nmete 0\nxor\nnot\n", "__dummy__"); }
 #line 1661 "parser.tab.c"
     break;
 
   case 52: /* condicion: expresion ES MAYOR QUE expresion  */
-#line 315 "parser.y"
+#line 317 "parser.y"
                                      { printf("sub\n"); }
 #line 1667 "parser.tab.c"
     break;
 
   case 53: /* condicion: expresion ES MENOR QUE expresion  */
-#line 316 "parser.y"
+#line 318 "parser.y"
                                      { printf("sub\n"); }
 #line 1673 "parser.tab.c"
     break;
 
   case 54: /* condicion: expresion '<' expresion  */
-#line 317 "parser.y"
+#line 319 "parser.y"
                             { printf("sub\n"); }
 #line 1679 "parser.tab.c"
     break;
 
   case 55: /* condicion: expresion '>' expresion  */
-#line 318 "parser.y"
+#line 320 "parser.y"
                             { printf("sub\n"); }
 #line 1685 "parser.tab.c"
     break;
 
   case 56: /* condicion: expresion '=' expresion  */
-#line 319 "parser.y"
+#line 321 "parser.y"
                             { printf("xor\nnot\n"); }
 #line 1691 "parser.tab.c"
     break;
@@ -1884,7 +1884,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 322 "parser.y"
+#line 324 "parser.y"
 
 
 void yyerror(const char *s) {
@@ -1909,6 +1909,7 @@ int main(int argc, char *argv[]) {
     }
     yyin = f;
   }
+  yydebug = 1;
   yyparse();
   return 0;
 }
