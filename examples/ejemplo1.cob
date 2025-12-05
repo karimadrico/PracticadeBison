@@ -1,0 +1,22 @@
+PROGRAMA EXAMPLE1.
+      * Comentario COBOL de asterisco en columna 7
+INICIO  *> otro comentario
+       CALCULA VAR = 5 * 25 FIN-CALCULA. *> VAR toma el valor de 5 * 25
+       LEE V.                            *> Leer valor para V
+       LEE V2.                           *> Leer valor para V2
+       EJECUTA                           *> bucle para decrementar VAR
+         RESTA 2 5 DE VAR.
+       FIN-EJECUTA
+       HASTA-QUE VAR ES IGUAL A 0.
+       SI 5 - VAR ES MAYOR QUE 0         *> Condicional
+       ENTONCES
+      * Rama ENTONCES
+             RESTA 1 2 DE V2 DANDO V.
+             MULTIPLICA 3 POR V DANDO Z.
+             MUESTRA "3*(V-1) es: ", Z.
+       SINO
+      * Rama SINO
+             CALCULA Z COMO VAR + 10.
+             MUESTRA 'VAR + 10 es: ', Z.
+       FIN-SI.
+FIN.
