@@ -25,6 +25,7 @@ char *getNumLbl(void);
 %token FINSI
 %token HASTAQUE
 %token CALCULA FIN_CALCULA MUEVE A DE COMO POR
+%type <num> listaExpresiones
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 
 %left '+' '-'
