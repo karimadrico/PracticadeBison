@@ -24,6 +24,7 @@ char *getNumLbl(void);
 %token EJECUTA VECES USANDO FIN_EJECUTA
 %token FINSI
 %token HASTAQUE
+%token CALCULA FIN_CALCULA MUEVE A DE COMO POR
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 
 %left '+' '-'
@@ -85,6 +86,18 @@ bucle
         printf("%s:\n", lbl1);
         free($5);
     }
+  /* Bucle que ejecuta el bloque y se termina con HASTA-QUE condicion. */
+  | EJECUTA sentencias FIN_EJECUTA HASTAQUE condicion {
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        printf("%s:\n", lbl0);
+        /* cuerpo ya generado por sentencias */
+        printf("valord %s\n", "__dummy__"); /* placeholder no usado */
+        /* Evaluar condicion: la acción de condicion genera el código apropiado */
+        printf("sifalsovea %s\n", lbl1);
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+    }
   ;
 
 comparar
@@ -102,6 +115,25 @@ asignar
       printf("swap\n");
       printf("asigna\n");
       free($1);
+    }
+  | CALCULA ID '=' expresion FIN_CALCULA {
+      printf("valori %s\n", $2);
+      printf("swap\n");
+      printf("asigna\n");
+      free($2);
+    }
+  | CALCULA ID COMO expresion {
+      printf("valori %s\n", $2);
+      printf("swap\n");
+      printf("asigna\n");
+      free($2);
+    }
+  | MUEVE NUM A ID {
+      printf("mete %d\n", $2);
+      printf("valori %s\n", $4);
+      printf("swap\n");
+      printf("asigna\n");
+      free($4);
     }
   ;
 
@@ -170,14 +202,23 @@ listaValores
 
 io
   : LEE ID { printf("lee %s\n", $2); free($2); }
-  | MOSTRAR ID { printf("valord %s\nprint 1\n", $2); free($2); }
-  | MOSTRAR CAD { printf("metecad %s\n", $2); printf("print 1\n"); free($2); }
-  | MOSTRAR NUM { printf("mete %d\nprint 1\n", $2); }
+  | MOSTRAR listaExpresiones { printf("print %d\n", $2); }
+  ;
+
+/* lista de expresiones para MUESTRA; el nonterminal devuelve en .num el
+   número de elementos para saber cuántos imprimir. */
+listaExpresiones
+  : expresion { $$ = 1; }
+  | listaExpresiones ',' expresion { $$ = $1 + 1; }
+  ;
   ;
 
 expresion
   : ID { printf("valord %s\n", $1); free($1); }
   | NUM { printf("mete %d\n", $1); }
+  | CAD { printf("metecad %s\n", $1); free($1); }
+  | expresion '*' expresion { printf("mul\n"); }
+  | expresion '/' expresion { printf("div\n"); }
   | expresion '+' expresion { printf("add\n"); }
   | expresion '-' expresion { printf("sub\n"); }
   ;

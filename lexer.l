@@ -35,6 +35,14 @@ RESTA        { return RESTA; }
 MULTIPLICA   { return MULTIPLICA; }
 DIVIDE       { return DIVIDE; }
 DANDO        { return DANDO; }
+CALCULA      { return CALCULA; }
+"FIN-CALCULA" { return FIN_CALCULA; }
+MUEVE        { return MUEVE; }
+A            { return A; }
+DE           { return DE; }
+COMO         { return COMO; }
+POR          { return POR; }
+','          { return ','; }
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
 [A-Z]([A-Z0-9\-]*)? {
     int L = (int)strlen(yytext);
