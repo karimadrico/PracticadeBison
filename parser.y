@@ -28,7 +28,6 @@ char *getNumLbl(void);
 %token HASTAQUE
 %token CALCULA FIN_CALCULA MUEVE A DE COMO POR
 %token ES IGUAL MAYOR MENOR QUE
-%type <num> listaExpresiones
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 
 %left '+' '-'
