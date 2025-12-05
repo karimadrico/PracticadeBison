@@ -20,6 +20,11 @@ MOSTRAR      { return MOSTRAR; }
 SI           { return SI; }
 ENTONCES     { return ENTONCES; }
 SINO         { return SINO; }
+ES           { return ES; }
+IGUAL        { return IGUAL; }
+MAYOR        { return MAYOR; }
+MENOR        { return MENOR; }
+QUE          { return QUE; }
 MIENTRAS     { return MIENTRAS; }
 HACER        { return HACER; }
 FINMIENTRAS  { return FINMIENTRAS; }

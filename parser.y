@@ -14,6 +14,8 @@ char *getNumLbl(void);
   char *cad;
 }
 
+%type <num> listaExpresiones
+
 %token <num> NUM
 %token <id> ID
 %token <cad> CAD
@@ -25,6 +27,7 @@ char *getNumLbl(void);
 %token FINSI
 %token HASTAQUE
 %token CALCULA FIN_CALCULA MUEVE A DE COMO POR
+%token ES IGUAL MAYOR MENOR QUE
 %type <num> listaExpresiones
 %token SUMA RESTA MULTIPLICA DIVIDE DANDO
 
@@ -225,7 +228,10 @@ expresion
   ;
 
 condicion
-  : expresion '<' expresion { printf("sub\n"); }
+  : expresion ES IGUAL A expresion { printf("valord %s\nmete 0\nxor\nnot\n", "__dummy__"); }
+  | expresion ES MAYOR QUE expresion { printf("sub\n"); }
+  | expresion ES MENOR QUE expresion { printf("sub\n"); }
+  | expresion '<' expresion { printf("sub\n"); }
   | expresion '>' expresion { printf("sub\n"); }
   | expresion '=' expresion { printf("xor\nnot\n"); }
   ;
