@@ -6,15 +6,14 @@
 %}
 %option noyywrap
 %%
-/* Comentario COBOL: cualquier línea que empiece por 6 espacios seguido de '*' */
-/* Comentario columna-7: seis espacios ASCII seguido de '*' usando escapes octales */
-^\040\040\040\040\040\040\*.*    { /* Ignorar comentario de columna 7 */ ; }
+/* Comentario COBOL en columna 7: seis espacios ASCII seguidos de '*' */
+"      *".*      { /* Ignorar comentario de columna 7 */ ; }
 
-/* Comentarios en línea que empiezan por '*>', o por '*|' según el enunciado */
-"*>".*           { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
+/* Comentario en línea que empieza por '*>'. ('*|' es trampa y se omite) */
+"*>".*        { /* Ignorar hasta fin de línea */ ; }
 
 /* Espacios y saltos de línea */
-[ \t\r\n]+     { /* Ignorar espacios y saltos de línea */ ; }
+[ \t\r\n]+    { /* Ignorar */ ; }
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
 PROGRAMA     { return PROGRAMA; }
@@ -55,18 +54,7 @@ COMO         { return COMO; }
 POR          { return POR; }
 ","          { return ','; }
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
-[A-Z]([A-Z0-9\-]*)? {
-    int L = (int)strlen(yytext);
-    /* Prohibir identificadores que empiezan o terminan con '-' */
-    if (yytext[0] == '-' || yytext[L-1] == '-') {
-        /* Identificador inválido: ignorar o reportar error */
-        fprintf(stderr, "Identificador inválido: %s\n", yytext);
-        ;
-    } else {
-        yylval.id = strdup(yytext);
-        return ID;
-    }
-}
+[A-Z][A-Z0-9-]*    { yylval.id = strdup(yytext); return ID; }
 \.            { return '.'; }
 .             { return yytext[0]; }
 %%
