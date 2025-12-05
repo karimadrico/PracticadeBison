@@ -6,9 +6,17 @@
 %}
 %option noyywrap
 %%
-^[ \t\f\r]*\*.*      { /* Ignorar línea completa si la primera parte tiene espacios y un '*' en columna 7 o similar */ ; }
-"*>".*         { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
-[ \t\r\n]+   { /* Ignorar espacios y saltos de línea */ ; }
+/* Ignorar posible BOM UTF-8 al inicio del fichero */
+\xEF\xBB\xBF    { /* ignore BOM */ ; }
+
+/* Comentario COBOL: cualquier línea que empiece por 6 espacios seguido de '*' */
+^[ ]{6}\*.*      { /* Ignorar comentario de columna 7 */ ; }
+
+/* Comentarios en línea que empiezan por '*/>' o '*|' según el enunciado */
+"*>".*           { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
+
+/* Espacios y saltos de línea */
+[ \t\r\n]+     { /* Ignorar espacios y saltos de línea */ ; }
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
 PROGRAMA     { return PROGRAMA; }
