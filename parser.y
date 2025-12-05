@@ -33,6 +33,8 @@ char *getNumLbl(void);
 %left '+' '-'
 %left '*' '/'
 
+%define parse.trace
+
 %start programa
 
 %%
@@ -343,6 +345,7 @@ int main(int argc, char *argv[]) {
     }
     yyin = f;
   }
+  yydebug = 1;
   yyparse();
   return 0;
 }
