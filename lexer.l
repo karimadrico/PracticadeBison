@@ -7,8 +7,8 @@
 %option noyywrap
 %%
 /* Comentario COBOL: cualquier línea que empiece por 6 espacios seguido de '*' */
-/* Comentario columna-7: seis espacios ASCII seguido de '*' (expresión ASCII-pura) */
-^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar comentario de columna 7 */ ; }
+/* Comentario columna-7: seis espacios ASCII seguido de '*' usando escapes octales */
+^\040\040\040\040\040\040\*.*    { /* Ignorar comentario de columna 7 */ ; }
 
 /* Comentarios en línea que empiezan por '*>', o por '*|' según el enunciado */
 "*>".*           { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
