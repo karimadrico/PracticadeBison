@@ -7,12 +7,10 @@
 %option noyywrap
 %%
 /* Comentario COBOL: cualquier línea que empiece por 6 espacios seguido de '*' */
-/* Regla literal (compatible) */
-"      *".*      { /* Ignorar comentario de columna 7 (seis espacios + '*') */ ; }
-/* Regla alternativa usando clase y cuantificador (más tolerante) */
-^[ ]{6}\*.*      { /* Ignorar comentario de columna 7 */ ; }
+/* Comentario columna-7: seis espacios ASCII seguido de '*' (expresión ASCII-pura) */
+^[ ][ ][ ][ ][ ][ ]\*.*    { /* Ignorar comentario de columna 7 */ ; }
 
-/* Comentarios en línea que empiezan por '*/>' o '*|' según el enunciado */
+/* Comentarios en línea que empiezan por '*>', o por '*|' según el enunciado */
 "*>".*           { /* Ignorar comentario en línea iniciando con '*>'. */ ; }
 
 /* Espacios y saltos de línea */
