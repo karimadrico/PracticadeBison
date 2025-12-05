@@ -6,10 +6,10 @@
 %}
 %option noyywrap
 %%
-/* Ignorar posible BOM UTF-8 al inicio del fichero */
-\xEF\xBB\xBF    { /* ignore BOM */ ; }
-
 /* Comentario COBOL: cualquier línea que empiece por 6 espacios seguido de '*' */
+/* Regla literal (compatible) */
+"      *".*      { /* Ignorar comentario de columna 7 (seis espacios + '*') */ ; }
+/* Regla alternativa usando clase y cuantificador (más tolerante) */
 ^[ ]{6}\*.*      { /* Ignorar comentario de columna 7 */ ; }
 
 /* Comentarios en línea que empiezan por '*/>' o '*|' según el enunciado */
