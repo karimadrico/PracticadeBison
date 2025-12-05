@@ -6,8 +6,8 @@
 %}
 %option noyywrap
 %%
-/* Comentario COBOL en columna 7: seis espacios ASCII seguidos de '*' */
-"      *".*      { /* Ignorar comentario de columna 7 */ ; }
+/* Ignorar cualquier línea que empiece por espacios opcionales y '*' (cubre columna-7) */
+^[ \t]*\*.*      { /* Ignorar comentario de línea completa */ ; }
 
 /* Comentario en línea que empieza por '*>'. ('*|' es trampa y se omite) */
 "*>".*        { /* Ignorar hasta fin de línea */ ; }
