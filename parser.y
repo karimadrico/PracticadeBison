@@ -336,6 +336,10 @@ char *getNumLbl(void) {
   return buf;
 }
 
+/* Exponer el `main` solo cuando no se compile el ejecutable de prueba del lexer.
+   Esto permite compilar `lex.yy.c` con `-DTEST_LEXER` y enlazar con
+   `parser.tab.c` sin que haya dos funciones vete al sk`main`. */
+#ifndef TEST_LEXER
 int main(int argc, char *argv[]) {
   if (argc > 1) {
     FILE *f = fopen(argv[1], "r");
@@ -349,3 +353,4 @@ int main(int argc, char *argv[]) {
   yyparse();
   return 0;
 }
+#endif
