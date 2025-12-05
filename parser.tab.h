@@ -74,11 +74,23 @@ extern int yydebug;
     FIN_EJECUTA = 275,             /* FIN_EJECUTA  */
     FINSI = 276,                   /* FINSI  */
     HASTAQUE = 277,                /* HASTAQUE  */
-    SUMA = 278,                    /* SUMA  */
-    RESTA = 279,                   /* RESTA  */
-    MULTIPLICA = 280,              /* MULTIPLICA  */
-    DIVIDE = 281,                  /* DIVIDE  */
-    DANDO = 282                    /* DANDO  */
+    CALCULA = 278,                 /* CALCULA  */
+    FIN_CALCULA = 279,             /* FIN_CALCULA  */
+    MUEVE = 280,                   /* MUEVE  */
+    A = 281,                       /* A  */
+    DE = 282,                      /* DE  */
+    COMO = 283,                    /* COMO  */
+    POR = 284,                     /* POR  */
+    ES = 285,                      /* ES  */
+    IGUAL = 286,                   /* IGUAL  */
+    MAYOR = 287,                   /* MAYOR  */
+    MENOR = 288,                   /* MENOR  */
+    QUE = 289,                     /* QUE  */
+    SUMA = 290,                    /* SUMA  */
+    RESTA = 291,                   /* RESTA  */
+    MULTIPLICA = 292,              /* MULTIPLICA  */
+    DIVIDE = 293,                  /* DIVIDE  */
+    DANDO = 294                    /* DANDO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -93,7 +105,7 @@ union YYSTYPE
   char *id;
   char *cad;
 
-#line 97 "parser.tab.h"
+#line 109 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -1,0 +1,1597 @@
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: PROGRAMA ID '.' INICIO sentencias FIN '.'
+
+    2 sentencias: ε
+    3           | sentencias sentencia
+
+    4 sentencia: bucle '.'
+    5          | comparar '.'
+    6          | asignar '.'
+    7          | io '.'
+    8          | arit '.'
+
+    9 bucle: MIENTRAS condicion HACER sentencias FINMIENTRAS
+   10      | EJECUTA NUM VECES USANDO ID sentencias FIN_EJECUTA
+   11      | EJECUTA sentencias FIN_EJECUTA HASTAQUE condicion
+
+   12 comparar: SI condicion ENTONCES sentencias SINO sentencias FINSI
+   13         | SI condicion ENTONCES sentencias FINSI
+
+   14 asignar: ID '=' expresion
+   15        | CALCULA ID '=' expresion FIN_CALCULA
+   16        | CALCULA ID COMO expresion
+   17        | MUEVE NUM A ID
+
+   18 arit: SUMA listaValores DANDO ID
+   19     | SUMA listaValores ID
+   20     | SUMA listaValores DE ID
+   21     | SUMA listaValores A ID
+   22     | SUMA listaValores POR ID
+   23     | RESTA listaValores DANDO ID
+   24     | RESTA listaValores ID
+   25     | RESTA listaValores DE ID
+   26     | RESTA listaValores A ID
+   27     | RESTA listaValores POR ID
+   28     | MULTIPLICA listaValores DANDO ID
+   29     | MULTIPLICA listaValores ID
+   30     | MULTIPLICA listaValores DE ID
+   31     | MULTIPLICA listaValores A ID
+   32     | MULTIPLICA listaValores POR ID
+   33     | DIVIDE listaValores DANDO ID
+   34     | DIVIDE listaValores ID
+   35     | DIVIDE listaValores DE ID
+   36     | DIVIDE listaValores A ID
+   37     | DIVIDE listaValores POR ID
+
+   38 listaValores: expresion expresion
+
+   39 io: LEE ID
+   40   | MOSTRAR listaExpresiones
+
+   41 listaExpresiones: expresion
+   42                 | listaExpresiones ',' expresion
+
+   43 expresion: ID
+   44          | NUM
+   45          | CAD
+   46          | expresion '*' expresion
+   47          | expresion '/' expresion
+   48          | expresion '+' expresion
+   49          | expresion '-' expresion
+
+   50 condicion: expresion ES IGUAL A expresion
+   51          | expresion ES MAYOR QUE expresion
+   52          | expresion ES MENOR QUE expresion
+   53          | expresion '<' expresion
+   54          | expresion '>' expresion
+   55          | expresion '=' expresion
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '*' (42) 46
+    '+' (43) 48
+    ',' (44) 42
+    '-' (45) 49
+    '.' (46) 1 4 5 6 7 8
+    '/' (47) 47
+    '<' (60) 53
+    '=' (61) 14 15 55
+    '>' (62) 54
+    error (256)
+    NUM <num> (258) 10 17 44
+    ID <id> (259) 1 10 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 39 43
+    CAD <cad> (260) 45
+    PROGRAMA (261) 1
+    INICIO (262) 1
+    FIN (263) 1
+    LEE (264) 39
+    MOSTRAR (265) 40
+    SI (266) 12 13
+    ENTONCES (267) 12 13
+    SINO (268) 12
+    MIENTRAS (269) 9
+    HACER (270) 9
+    FINMIENTRAS (271) 9
+    EJECUTA (272) 10 11
+    VECES (273) 10
+    USANDO (274) 10
+    FIN_EJECUTA (275) 10 11
+    FINSI (276) 12 13
+    HASTAQUE (277) 11
+    CALCULA (278) 15 16
+    FIN_CALCULA (279) 15
+    MUEVE (280) 17
+    A (281) 17 21 26 31 36 50
+    DE (282) 20 25 30 35
+    COMO (283) 16
+    POR (284) 22 27 32 37
+    ES (285) 50 51 52
+    IGUAL (286) 50
+    MAYOR (287) 51
+    MENOR (288) 52
+    QUE (289) 51 52
+    SUMA (290) 18 19 20 21 22
+    RESTA (291) 23 24 25 26 27
+    MULTIPLICA (292) 28 29 30 31 32
+    DIVIDE (293) 33 34 35 36 37
+    DANDO (294) 18 23 28 33
+
+
+Nonterminals, with rules where they appear
+
+    $accept (49)
+        on left: 0
+    programa (50)
+        on left: 1
+        on right: 0
+    sentencias (51)
+        on left: 2 3
+        on right: 1 3 9 10 11 12 13
+    sentencia (52)
+        on left: 4 5 6 7 8
+        on right: 3
+    bucle (53)
+        on left: 9 10 11
+        on right: 4
+    comparar (54)
+        on left: 12 13
+        on right: 5
+    asignar (55)
+        on left: 14 15 16 17
+        on right: 6
+    arit (56)
+        on left: 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37
+        on right: 8
+    listaValores (57)
+        on left: 38
+        on right: 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37
+    io (58)
+        on left: 39 40
+        on right: 7
+    listaExpresiones <num> (59)
+        on left: 41 42
+        on right: 40 42
+    expresion (60)
+        on left: 43 44 45 46 47 48 49
+        on right: 14 15 16 38 41 42 46 47 48 49 50 51 52 53 54 55
+    condicion (61)
+        on left: 50 51 52 53 54 55
+        on right: 9 11 12 13
+
+
+State 0
+
+    0 $accept: • programa $end
+
+    PROGRAMA  shift, and go to state 1
+
+    programa  go to state 2
+
+
+State 1
+
+    1 programa: PROGRAMA • ID '.' INICIO sentencias FIN '.'
+
+    ID  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: programa • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 programa: PROGRAMA ID • '.' INICIO sentencias FIN '.'
+
+    '.'  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: programa $end •
+
+    $default  accept
+
+
+State 5
+
+    1 programa: PROGRAMA ID '.' • INICIO sentencias FIN '.'
+
+    INICIO  shift, and go to state 6
+
+
+State 6
+
+    1 programa: PROGRAMA ID '.' INICIO • sentencias FIN '.'
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 7
+
+
+State 7
+
+    1 programa: PROGRAMA ID '.' INICIO sentencias • FIN '.'
+    3 sentencias: sentencias • sentencia
+
+    ID          shift, and go to state 8
+    FIN         shift, and go to state 9
+    LEE         shift, and go to state 10
+    MOSTRAR     shift, and go to state 11
+    SI          shift, and go to state 12
+    MIENTRAS    shift, and go to state 13
+    EJECUTA     shift, and go to state 14
+    CALCULA     shift, and go to state 15
+    MUEVE       shift, and go to state 16
+    SUMA        shift, and go to state 17
+    RESTA       shift, and go to state 18
+    MULTIPLICA  shift, and go to state 19
+    DIVIDE      shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 8
+
+   14 asignar: ID • '=' expresion
+
+    '='  shift, and go to state 27
+
+
+State 9
+
+    1 programa: PROGRAMA ID '.' INICIO sentencias FIN • '.'
+
+    '.'  shift, and go to state 28
+
+
+State 10
+
+   39 io: LEE • ID
+
+    ID  shift, and go to state 29
+
+
+State 11
+
+   40 io: MOSTRAR • listaExpresiones
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    listaExpresiones  go to state 33
+    expresion         go to state 34
+
+
+State 12
+
+   12 comparar: SI • condicion ENTONCES sentencias SINO sentencias FINSI
+   13         | SI • condicion ENTONCES sentencias FINSI
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 35
+    condicion  go to state 36
+
+
+State 13
+
+    9 bucle: MIENTRAS • condicion HACER sentencias FINMIENTRAS
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 35
+    condicion  go to state 37
+
+
+State 14
+
+   10 bucle: EJECUTA • NUM VECES USANDO ID sentencias FIN_EJECUTA
+   11      | EJECUTA • sentencias FIN_EJECUTA HASTAQUE condicion
+
+    NUM  shift, and go to state 38
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 39
+
+
+State 15
+
+   15 asignar: CALCULA • ID '=' expresion FIN_CALCULA
+   16        | CALCULA • ID COMO expresion
+
+    ID  shift, and go to state 40
+
+
+State 16
+
+   17 asignar: MUEVE • NUM A ID
+
+    NUM  shift, and go to state 41
+
+
+State 17
+
+   18 arit: SUMA • listaValores DANDO ID
+   19     | SUMA • listaValores ID
+   20     | SUMA • listaValores DE ID
+   21     | SUMA • listaValores A ID
+   22     | SUMA • listaValores POR ID
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    listaValores  go to state 42
+    expresion     go to state 43
+
+
+State 18
+
+   23 arit: RESTA • listaValores DANDO ID
+   24     | RESTA • listaValores ID
+   25     | RESTA • listaValores DE ID
+   26     | RESTA • listaValores A ID
+   27     | RESTA • listaValores POR ID
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    listaValores  go to state 44
+    expresion     go to state 43
+
+
+State 19
+
+   28 arit: MULTIPLICA • listaValores DANDO ID
+   29     | MULTIPLICA • listaValores ID
+   30     | MULTIPLICA • listaValores DE ID
+   31     | MULTIPLICA • listaValores A ID
+   32     | MULTIPLICA • listaValores POR ID
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    listaValores  go to state 45
+    expresion     go to state 43
+
+
+State 20
+
+   33 arit: DIVIDE • listaValores DANDO ID
+   34     | DIVIDE • listaValores ID
+   35     | DIVIDE • listaValores DE ID
+   36     | DIVIDE • listaValores A ID
+   37     | DIVIDE • listaValores POR ID
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    listaValores  go to state 46
+    expresion     go to state 43
+
+
+State 21
+
+    3 sentencias: sentencias sentencia •
+
+    $default  reduce using rule 3 (sentencias)
+
+
+State 22
+
+    4 sentencia: bucle • '.'
+
+    '.'  shift, and go to state 47
+
+
+State 23
+
+    5 sentencia: comparar • '.'
+
+    '.'  shift, and go to state 48
+
+
+State 24
+
+    6 sentencia: asignar • '.'
+
+    '.'  shift, and go to state 49
+
+
+State 25
+
+    8 sentencia: arit • '.'
+
+    '.'  shift, and go to state 50
+
+
+State 26
+
+    7 sentencia: io • '.'
+
+    '.'  shift, and go to state 51
+
+
+State 27
+
+   14 asignar: ID '=' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 52
+
+
+State 28
+
+    1 programa: PROGRAMA ID '.' INICIO sentencias FIN '.' •
+
+    $default  reduce using rule 1 (programa)
+
+
+State 29
+
+   39 io: LEE ID •
+
+    $default  reduce using rule 39 (io)
+
+
+State 30
+
+   44 expresion: NUM •
+
+    $default  reduce using rule 44 (expresion)
+
+
+State 31
+
+   43 expresion: ID •
+
+    $default  reduce using rule 43 (expresion)
+
+
+State 32
+
+   45 expresion: CAD •
+
+    $default  reduce using rule 45 (expresion)
+
+
+State 33
+
+   40 io: MOSTRAR listaExpresiones •
+   42 listaExpresiones: listaExpresiones • ',' expresion
+
+    ','  shift, and go to state 53
+
+    $default  reduce using rule 40 (io)
+
+
+State 34
+
+   41 listaExpresiones: expresion •
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 41 (listaExpresiones)
+
+
+State 35
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   50 condicion: expresion • ES IGUAL A expresion
+   51          | expresion • ES MAYOR QUE expresion
+   52          | expresion • ES MENOR QUE expresion
+   53          | expresion • '<' expresion
+   54          | expresion • '>' expresion
+   55          | expresion • '=' expresion
+
+    ES   shift, and go to state 58
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+    '='  shift, and go to state 59
+    '<'  shift, and go to state 60
+    '>'  shift, and go to state 61
+
+
+State 36
+
+   12 comparar: SI condicion • ENTONCES sentencias SINO sentencias FINSI
+   13         | SI condicion • ENTONCES sentencias FINSI
+
+    ENTONCES  shift, and go to state 62
+
+
+State 37
+
+    9 bucle: MIENTRAS condicion • HACER sentencias FINMIENTRAS
+
+    HACER  shift, and go to state 63
+
+
+State 38
+
+   10 bucle: EJECUTA NUM • VECES USANDO ID sentencias FIN_EJECUTA
+
+    VECES  shift, and go to state 64
+
+
+State 39
+
+    3 sentencias: sentencias • sentencia
+   11 bucle: EJECUTA sentencias • FIN_EJECUTA HASTAQUE condicion
+
+    ID           shift, and go to state 8
+    LEE          shift, and go to state 10
+    MOSTRAR      shift, and go to state 11
+    SI           shift, and go to state 12
+    MIENTRAS     shift, and go to state 13
+    EJECUTA      shift, and go to state 14
+    FIN_EJECUTA  shift, and go to state 65
+    CALCULA      shift, and go to state 15
+    MUEVE        shift, and go to state 16
+    SUMA         shift, and go to state 17
+    RESTA        shift, and go to state 18
+    MULTIPLICA   shift, and go to state 19
+    DIVIDE       shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 40
+
+   15 asignar: CALCULA ID • '=' expresion FIN_CALCULA
+   16        | CALCULA ID • COMO expresion
+
+    COMO  shift, and go to state 66
+    '='   shift, and go to state 67
+
+
+State 41
+
+   17 asignar: MUEVE NUM • A ID
+
+    A  shift, and go to state 68
+
+
+State 42
+
+   18 arit: SUMA listaValores • DANDO ID
+   19     | SUMA listaValores • ID
+   20     | SUMA listaValores • DE ID
+   21     | SUMA listaValores • A ID
+   22     | SUMA listaValores • POR ID
+
+    ID     shift, and go to state 69
+    A      shift, and go to state 70
+    DE     shift, and go to state 71
+    POR    shift, and go to state 72
+    DANDO  shift, and go to state 73
+
+
+State 43
+
+   38 listaValores: expresion • expresion
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    expresion  go to state 74
+
+
+State 44
+
+   23 arit: RESTA listaValores • DANDO ID
+   24     | RESTA listaValores • ID
+   25     | RESTA listaValores • DE ID
+   26     | RESTA listaValores • A ID
+   27     | RESTA listaValores • POR ID
+
+    ID     shift, and go to state 75
+    A      shift, and go to state 76
+    DE     shift, and go to state 77
+    POR    shift, and go to state 78
+    DANDO  shift, and go to state 79
+
+
+State 45
+
+   28 arit: MULTIPLICA listaValores • DANDO ID
+   29     | MULTIPLICA listaValores • ID
+   30     | MULTIPLICA listaValores • DE ID
+   31     | MULTIPLICA listaValores • A ID
+   32     | MULTIPLICA listaValores • POR ID
+
+    ID     shift, and go to state 80
+    A      shift, and go to state 81
+    DE     shift, and go to state 82
+    POR    shift, and go to state 83
+    DANDO  shift, and go to state 84
+
+
+State 46
+
+   33 arit: DIVIDE listaValores • DANDO ID
+   34     | DIVIDE listaValores • ID
+   35     | DIVIDE listaValores • DE ID
+   36     | DIVIDE listaValores • A ID
+   37     | DIVIDE listaValores • POR ID
+
+    ID     shift, and go to state 85
+    A      shift, and go to state 86
+    DE     shift, and go to state 87
+    POR    shift, and go to state 88
+    DANDO  shift, and go to state 89
+
+
+State 47
+
+    4 sentencia: bucle '.' •
+
+    $default  reduce using rule 4 (sentencia)
+
+
+State 48
+
+    5 sentencia: comparar '.' •
+
+    $default  reduce using rule 5 (sentencia)
+
+
+State 49
+
+    6 sentencia: asignar '.' •
+
+    $default  reduce using rule 6 (sentencia)
+
+
+State 50
+
+    8 sentencia: arit '.' •
+
+    $default  reduce using rule 8 (sentencia)
+
+
+State 51
+
+    7 sentencia: io '.' •
+
+    $default  reduce using rule 7 (sentencia)
+
+
+State 52
+
+   14 asignar: ID '=' expresion •
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 14 (asignar)
+
+
+State 53
+
+   42 listaExpresiones: listaExpresiones ',' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 90
+
+
+State 54
+
+   48 expresion: expresion '+' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 91
+
+
+State 55
+
+   49 expresion: expresion '-' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 92
+
+
+State 56
+
+   46 expresion: expresion '*' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 93
+
+
+State 57
+
+   47 expresion: expresion '/' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 94
+
+
+State 58
+
+   50 condicion: expresion ES • IGUAL A expresion
+   51          | expresion ES • MAYOR QUE expresion
+   52          | expresion ES • MENOR QUE expresion
+
+    IGUAL  shift, and go to state 95
+    MAYOR  shift, and go to state 96
+    MENOR  shift, and go to state 97
+
+
+State 59
+
+   55 condicion: expresion '=' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 98
+
+
+State 60
+
+   53 condicion: expresion '<' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 99
+
+
+State 61
+
+   54 condicion: expresion '>' • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 100
+
+
+State 62
+
+   12 comparar: SI condicion ENTONCES • sentencias SINO sentencias FINSI
+   13         | SI condicion ENTONCES • sentencias FINSI
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 101
+
+
+State 63
+
+    9 bucle: MIENTRAS condicion HACER • sentencias FINMIENTRAS
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 102
+
+
+State 64
+
+   10 bucle: EJECUTA NUM VECES • USANDO ID sentencias FIN_EJECUTA
+
+    USANDO  shift, and go to state 103
+
+
+State 65
+
+   11 bucle: EJECUTA sentencias FIN_EJECUTA • HASTAQUE condicion
+
+    HASTAQUE  shift, and go to state 104
+
+
+State 66
+
+   16 asignar: CALCULA ID COMO • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 105
+
+
+State 67
+
+   15 asignar: CALCULA ID '=' • expresion FIN_CALCULA
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 106
+
+
+State 68
+
+   17 asignar: MUEVE NUM A • ID
+
+    ID  shift, and go to state 107
+
+
+State 69
+
+   19 arit: SUMA listaValores ID •
+
+    $default  reduce using rule 19 (arit)
+
+
+State 70
+
+   21 arit: SUMA listaValores A • ID
+
+    ID  shift, and go to state 108
+
+
+State 71
+
+   20 arit: SUMA listaValores DE • ID
+
+    ID  shift, and go to state 109
+
+
+State 72
+
+   22 arit: SUMA listaValores POR • ID
+
+    ID  shift, and go to state 110
+
+
+State 73
+
+   18 arit: SUMA listaValores DANDO • ID
+
+    ID  shift, and go to state 111
+
+
+State 74
+
+   38 listaValores: expresion expresion •
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 38 (listaValores)
+
+
+State 75
+
+   24 arit: RESTA listaValores ID •
+
+    $default  reduce using rule 24 (arit)
+
+
+State 76
+
+   26 arit: RESTA listaValores A • ID
+
+    ID  shift, and go to state 112
+
+
+State 77
+
+   25 arit: RESTA listaValores DE • ID
+
+    ID  shift, and go to state 113
+
+
+State 78
+
+   27 arit: RESTA listaValores POR • ID
+
+    ID  shift, and go to state 114
+
+
+State 79
+
+   23 arit: RESTA listaValores DANDO • ID
+
+    ID  shift, and go to state 115
+
+
+State 80
+
+   29 arit: MULTIPLICA listaValores ID •
+
+    $default  reduce using rule 29 (arit)
+
+
+State 81
+
+   31 arit: MULTIPLICA listaValores A • ID
+
+    ID  shift, and go to state 116
+
+
+State 82
+
+   30 arit: MULTIPLICA listaValores DE • ID
+
+    ID  shift, and go to state 117
+
+
+State 83
+
+   32 arit: MULTIPLICA listaValores POR • ID
+
+    ID  shift, and go to state 118
+
+
+State 84
+
+   28 arit: MULTIPLICA listaValores DANDO • ID
+
+    ID  shift, and go to state 119
+
+
+State 85
+
+   34 arit: DIVIDE listaValores ID •
+
+    $default  reduce using rule 34 (arit)
+
+
+State 86
+
+   36 arit: DIVIDE listaValores A • ID
+
+    ID  shift, and go to state 120
+
+
+State 87
+
+   35 arit: DIVIDE listaValores DE • ID
+
+    ID  shift, and go to state 121
+
+
+State 88
+
+   37 arit: DIVIDE listaValores POR • ID
+
+    ID  shift, and go to state 122
+
+
+State 89
+
+   33 arit: DIVIDE listaValores DANDO • ID
+
+    ID  shift, and go to state 123
+
+
+State 90
+
+   42 listaExpresiones: listaExpresiones ',' expresion •
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 42 (listaExpresiones)
+
+
+State 91
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   48          | expresion '+' expresion •
+   49          | expresion • '-' expresion
+
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 48 (expresion)
+
+
+State 92
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   49          | expresion '-' expresion •
+
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 49 (expresion)
+
+
+State 93
+
+   46 expresion: expresion • '*' expresion
+   46          | expresion '*' expresion •
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    $default  reduce using rule 46 (expresion)
+
+
+State 94
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   47          | expresion '/' expresion •
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    $default  reduce using rule 47 (expresion)
+
+
+State 95
+
+   50 condicion: expresion ES IGUAL • A expresion
+
+    A  shift, and go to state 124
+
+
+State 96
+
+   51 condicion: expresion ES MAYOR • QUE expresion
+
+    QUE  shift, and go to state 125
+
+
+State 97
+
+   52 condicion: expresion ES MENOR • QUE expresion
+
+    QUE  shift, and go to state 126
+
+
+State 98
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   55 condicion: expresion '=' expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 55 (condicion)
+
+
+State 99
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   53 condicion: expresion '<' expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 53 (condicion)
+
+
+State 100
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   54 condicion: expresion '>' expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 54 (condicion)
+
+
+State 101
+
+    3 sentencias: sentencias • sentencia
+   12 comparar: SI condicion ENTONCES sentencias • SINO sentencias FINSI
+   13         | SI condicion ENTONCES sentencias • FINSI
+
+    ID          shift, and go to state 8
+    LEE         shift, and go to state 10
+    MOSTRAR     shift, and go to state 11
+    SI          shift, and go to state 12
+    SINO        shift, and go to state 127
+    MIENTRAS    shift, and go to state 13
+    EJECUTA     shift, and go to state 14
+    FINSI       shift, and go to state 128
+    CALCULA     shift, and go to state 15
+    MUEVE       shift, and go to state 16
+    SUMA        shift, and go to state 17
+    RESTA       shift, and go to state 18
+    MULTIPLICA  shift, and go to state 19
+    DIVIDE      shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 102
+
+    3 sentencias: sentencias • sentencia
+    9 bucle: MIENTRAS condicion HACER sentencias • FINMIENTRAS
+
+    ID           shift, and go to state 8
+    LEE          shift, and go to state 10
+    MOSTRAR      shift, and go to state 11
+    SI           shift, and go to state 12
+    MIENTRAS     shift, and go to state 13
+    FINMIENTRAS  shift, and go to state 129
+    EJECUTA      shift, and go to state 14
+    CALCULA      shift, and go to state 15
+    MUEVE        shift, and go to state 16
+    SUMA         shift, and go to state 17
+    RESTA        shift, and go to state 18
+    MULTIPLICA   shift, and go to state 19
+    DIVIDE       shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 103
+
+   10 bucle: EJECUTA NUM VECES USANDO • ID sentencias FIN_EJECUTA
+
+    ID  shift, and go to state 130
+
+
+State 104
+
+   11 bucle: EJECUTA sentencias FIN_EJECUTA HASTAQUE • condicion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 35
+    condicion  go to state 131
+
+
+State 105
+
+   16 asignar: CALCULA ID COMO expresion •
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 16 (asignar)
+
+
+State 106
+
+   15 asignar: CALCULA ID '=' expresion • FIN_CALCULA
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+
+    FIN_CALCULA  shift, and go to state 132
+    '+'          shift, and go to state 54
+    '-'          shift, and go to state 55
+    '*'          shift, and go to state 56
+    '/'          shift, and go to state 57
+
+
+State 107
+
+   17 asignar: MUEVE NUM A ID •
+
+    $default  reduce using rule 17 (asignar)
+
+
+State 108
+
+   21 arit: SUMA listaValores A ID •
+
+    $default  reduce using rule 21 (arit)
+
+
+State 109
+
+   20 arit: SUMA listaValores DE ID •
+
+    $default  reduce using rule 20 (arit)
+
+
+State 110
+
+   22 arit: SUMA listaValores POR ID •
+
+    $default  reduce using rule 22 (arit)
+
+
+State 111
+
+   18 arit: SUMA listaValores DANDO ID •
+
+    $default  reduce using rule 18 (arit)
+
+
+State 112
+
+   26 arit: RESTA listaValores A ID •
+
+    $default  reduce using rule 26 (arit)
+
+
+State 113
+
+   25 arit: RESTA listaValores DE ID •
+
+    $default  reduce using rule 25 (arit)
+
+
+State 114
+
+   27 arit: RESTA listaValores POR ID •
+
+    $default  reduce using rule 27 (arit)
+
+
+State 115
+
+   23 arit: RESTA listaValores DANDO ID •
+
+    $default  reduce using rule 23 (arit)
+
+
+State 116
+
+   31 arit: MULTIPLICA listaValores A ID •
+
+    $default  reduce using rule 31 (arit)
+
+
+State 117
+
+   30 arit: MULTIPLICA listaValores DE ID •
+
+    $default  reduce using rule 30 (arit)
+
+
+State 118
+
+   32 arit: MULTIPLICA listaValores POR ID •
+
+    $default  reduce using rule 32 (arit)
+
+
+State 119
+
+   28 arit: MULTIPLICA listaValores DANDO ID •
+
+    $default  reduce using rule 28 (arit)
+
+
+State 120
+
+   36 arit: DIVIDE listaValores A ID •
+
+    $default  reduce using rule 36 (arit)
+
+
+State 121
+
+   35 arit: DIVIDE listaValores DE ID •
+
+    $default  reduce using rule 35 (arit)
+
+
+State 122
+
+   37 arit: DIVIDE listaValores POR ID •
+
+    $default  reduce using rule 37 (arit)
+
+
+State 123
+
+   33 arit: DIVIDE listaValores DANDO ID •
+
+    $default  reduce using rule 33 (arit)
+
+
+State 124
+
+   50 condicion: expresion ES IGUAL A • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 133
+
+
+State 125
+
+   51 condicion: expresion ES MAYOR QUE • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 134
+
+
+State 126
+
+   52 condicion: expresion ES MENOR QUE • expresion
+
+    NUM  shift, and go to state 30
+    ID   shift, and go to state 31
+    CAD  shift, and go to state 32
+
+    expresion  go to state 135
+
+
+State 127
+
+   12 comparar: SI condicion ENTONCES sentencias SINO • sentencias FINSI
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 136
+
+
+State 128
+
+   13 comparar: SI condicion ENTONCES sentencias FINSI •
+
+    $default  reduce using rule 13 (comparar)
+
+
+State 129
+
+    9 bucle: MIENTRAS condicion HACER sentencias FINMIENTRAS •
+
+    $default  reduce using rule 9 (bucle)
+
+
+State 130
+
+   10 bucle: EJECUTA NUM VECES USANDO ID • sentencias FIN_EJECUTA
+
+    $default  reduce using rule 2 (sentencias)
+
+    sentencias  go to state 137
+
+
+State 131
+
+   11 bucle: EJECUTA sentencias FIN_EJECUTA HASTAQUE condicion •
+
+    $default  reduce using rule 11 (bucle)
+
+
+State 132
+
+   15 asignar: CALCULA ID '=' expresion FIN_CALCULA •
+
+    $default  reduce using rule 15 (asignar)
+
+
+State 133
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   50 condicion: expresion ES IGUAL A expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 50 (condicion)
+
+
+State 134
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   51 condicion: expresion ES MAYOR QUE expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 51 (condicion)
+
+
+State 135
+
+   46 expresion: expresion • '*' expresion
+   47          | expresion • '/' expresion
+   48          | expresion • '+' expresion
+   49          | expresion • '-' expresion
+   52 condicion: expresion ES MENOR QUE expresion •
+
+    '+'  shift, and go to state 54
+    '-'  shift, and go to state 55
+    '*'  shift, and go to state 56
+    '/'  shift, and go to state 57
+
+    $default  reduce using rule 52 (condicion)
+
+
+State 136
+
+    3 sentencias: sentencias • sentencia
+   12 comparar: SI condicion ENTONCES sentencias SINO sentencias • FINSI
+
+    ID          shift, and go to state 8
+    LEE         shift, and go to state 10
+    MOSTRAR     shift, and go to state 11
+    SI          shift, and go to state 12
+    MIENTRAS    shift, and go to state 13
+    EJECUTA     shift, and go to state 14
+    FINSI       shift, and go to state 138
+    CALCULA     shift, and go to state 15
+    MUEVE       shift, and go to state 16
+    SUMA        shift, and go to state 17
+    RESTA       shift, and go to state 18
+    MULTIPLICA  shift, and go to state 19
+    DIVIDE      shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 137
+
+    3 sentencias: sentencias • sentencia
+   10 bucle: EJECUTA NUM VECES USANDO ID sentencias • FIN_EJECUTA
+
+    ID           shift, and go to state 8
+    LEE          shift, and go to state 10
+    MOSTRAR      shift, and go to state 11
+    SI           shift, and go to state 12
+    MIENTRAS     shift, and go to state 13
+    EJECUTA      shift, and go to state 14
+    FIN_EJECUTA  shift, and go to state 139
+    CALCULA      shift, and go to state 15
+    MUEVE        shift, and go to state 16
+    SUMA         shift, and go to state 17
+    RESTA        shift, and go to state 18
+    MULTIPLICA   shift, and go to state 19
+    DIVIDE       shift, and go to state 20
+
+    sentencia  go to state 21
+    bucle      go to state 22
+    comparar   go to state 23
+    asignar    go to state 24
+    arit       go to state 25
+    io         go to state 26
+
+
+State 138
+
+   12 comparar: SI condicion ENTONCES sentencias SINO sentencias FINSI •
+
+    $default  reduce using rule 12 (comparar)
+
+
+State 139
+
+   10 bucle: EJECUTA NUM VECES USANDO ID sentencias FIN_EJECUTA •
+
+    $default  reduce using rule 10 (bucle)
