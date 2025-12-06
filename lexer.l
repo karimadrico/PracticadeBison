@@ -8,19 +8,20 @@
 %%
 
 
+
 /* Comentario COBOL: exactamente 6 espacios y luego '*' en columna 7 */
 ^[ ]{6}\*.*      { /* Ignora toda la línea (comentario COBOL) */ ; }
 
 /* Comentarios en línea: cualquier parte de la línea que empiece por '*>', o '*|' */
-"*>.*"        { /* Ignora desde '*>', resto de línea (comentario en línea) */ ; }
-"*|.*"        { /* Ignora desde '*|', resto de línea (comentario en línea) */ ; }
+"*>".*        { /* Ignora desde '*>', resto de línea (comentario en línea) */ ; }
+"*|".*        { /* Ignora desde '*|', resto de línea (comentario en línea) */ ; }
 
 /* Espacios y saltos de línea: ignora espacios, tabs y saltos de línea */
 [ \t\r\n]+    { /* Ignora espacios y saltos de línea */ ; }
 
 /* Cadenas de texto: dobles y simples */
-\"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
-\'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
+"\""([^\"]*)"\""      { yylval.cad = strdup(yytext); return CAD; }
+'[^']*'      { yylval.cad = strdup(yytext); return CAD; }
 
 
 /* Palabras reservadas del lenguaje */
