@@ -6,6 +6,7 @@ extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
 char *getNumLbl(void);
+static void generarOperacionAritmetica(const char *operacion, char *destinoBase, char *destinoDando);
 %}
 
 %union {
@@ -15,6 +16,7 @@ char *getNumLbl(void);
 }
 
 %type <num> listaExpresiones
+%type <id> targetOpt target optDando
 
 %token <num> NUM
 %token <id> ID
@@ -143,146 +145,51 @@ asignar
   ;
 
 arit
-  : SUMA listaValores DANDO ID {
-        printf("add\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
+  : SUMA listaValores targetOpt optDando {
+    if (!$3 && !$4) {
+      yyerror("La operación SUMA requiere un destino");
+      YYERROR;
     }
-  | SUMA listaValores ID {
-        printf("add\n");
-        printf("valori %s\n", $3);
-        printf("swap\n");
-        printf("asigna\n");
-        free($3);
+    generarOperacionAritmetica("add", $3, $4);
+  }
+  | RESTA listaValores targetOpt optDando {
+    if (!$3 && !$4) {
+      yyerror("La operación RESTA requiere un destino");
+      YYERROR;
     }
-  | SUMA listaValores DE ID {
-        printf("add\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
+    generarOperacionAritmetica("sub", $3, $4);
+  }
+  | MULTIPLICA listaValores targetOpt optDando {
+    if (!$3 && !$4) {
+      yyerror("La operación MULTIPLICA requiere un destino");
+      YYERROR;
     }
-  | SUMA listaValores A ID {
-        printf("add\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
+    generarOperacionAritmetica("mul", $3, $4);
+  }
+  | DIVIDE listaValores targetOpt optDando {
+    if (!$3 && !$4) {
+      yyerror("La operación DIVIDE requiere un destino");
+      YYERROR;
     }
-  | SUMA listaValores POR ID {
-        printf("add\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | RESTA listaValores DANDO ID {
-        printf("sub\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | RESTA listaValores ID {
-        printf("sub\n");
-        printf("valori %s\n", $3);
-        printf("swap\n");
-        printf("asigna\n");
-        free($3);
-    }
-  | RESTA listaValores DE ID {
-        printf("sub\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | RESTA listaValores A ID {
-        printf("sub\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | RESTA listaValores POR ID {
-        printf("sub\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | MULTIPLICA listaValores DANDO ID {
-        printf("mul\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | MULTIPLICA listaValores ID {
-        printf("mul\n");
-        printf("valori %s\n", $3);
-        printf("swap\n");
-        printf("asigna\n");
-        free($3);
-    }
-  | MULTIPLICA listaValores DE ID {
-        printf("mul\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | MULTIPLICA listaValores A ID {
-        printf("mul\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | MULTIPLICA listaValores POR ID {
-        printf("mul\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | DIVIDE listaValores DANDO ID {
-        printf("div\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | DIVIDE listaValores ID {
-        printf("div\n");
-        printf("valori %s\n", $3);
-        printf("swap\n");
-        printf("asigna\n");
-        free($3);
-    }
-  | DIVIDE listaValores DE ID {
-        printf("div\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | DIVIDE listaValores A ID {
-        printf("div\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
-  | DIVIDE listaValores POR ID {
-        printf("div\n");
-        printf("valori %s\n", $4);
-        printf("swap\n");
-        printf("asigna\n");
-        free($4);
-    }
+    generarOperacionAritmetica("div", $3, $4);
+  }
+  ;
+
+targetOpt
+  : target { $$ = $1; }
+  | /* vacío */ { $$ = NULL; }
+  ;
+
+target
+  : ID { $$ = $1; }
+  | DE ID { $$ = $2; }
+  | A ID { $$ = $2; }
+  | POR ID { $$ = $2; }
+  ;
+
+optDando
+  : DANDO ID { $$ = $2; }
+  | /* vacío */ { $$ = NULL; }
   ;
 
 listaValores
@@ -322,6 +229,21 @@ condicion
   ;
 
 %%
+
+static void generarOperacionAritmetica(const char *operacion, char *destinoBase, char *destinoDando) {
+  char *destinoFinal = destinoDando ? destinoDando : destinoBase;
+  if (!destinoFinal) {
+    return;
+  }
+  printf("%s\n", operacion);
+  printf("valori %s\n", destinoFinal);
+  printf("swap\n");
+  printf("asigna\n");
+  free(destinoFinal);
+  if (destinoDando && destinoBase) {
+    free(destinoBase);
+  }
+}
 
 void yyerror(const char *s) {
   fprintf(stderr, "Error de sintaxis: %s\n", s);
