@@ -6,7 +6,14 @@ extern FILE *yyin;
 int yylex(void);
 void yyerror(const char *s);
 char *getNumLbl(void);
-static void generarOperacionAritmetica(const char *operacion, char *destinoBase, char *destinoDando);
+typedef enum {
+  OP_SUMA,
+  OP_RESTA,
+  OP_MULTIPLICA,
+  OP_DIVIDE
+} TipoOperacion;
+
+static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando);
 %}
 
 %union {
@@ -150,28 +157,28 @@ arit
       yyerror("La operación SUMA requiere un destino");
       YYERROR;
     }
-    generarOperacionAritmetica("add", $3, $4);
+    generarOperacionAritmetica(OP_SUMA, $2, $3, $4);
   }
   | RESTA listaValores targetOpt optDando {
     if (!$3 && !$4) {
       yyerror("La operación RESTA requiere un destino");
       YYERROR;
     }
-    generarOperacionAritmetica("sub", $3, $4);
+    generarOperacionAritmetica(OP_RESTA, $2, $3, $4);
   }
   | MULTIPLICA listaValores targetOpt optDando {
     if (!$3 && !$4) {
       yyerror("La operación MULTIPLICA requiere un destino");
       YYERROR;
     }
-    generarOperacionAritmetica("mul", $3, $4);
+    generarOperacionAritmetica(OP_MULTIPLICA, $2, $3, $4);
   }
   | DIVIDE listaValores targetOpt optDando {
     if (!$3 && !$4) {
       yyerror("La operación DIVIDE requiere un destino");
       YYERROR;
     }
-    generarOperacionAritmetica("div", $3, $4);
+    generarOperacionAritmetica(OP_DIVIDE, $2, $3, $4);
   }
   ;
 
@@ -250,6 +257,42 @@ static void generarOperacionAritmetica(const char *operacion, char *operandoDest
   }
   if (operandoDestino) {
     free(operandoDestino);
+  }
+}
+
+static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando) {
+  const char *opAcumulacion = (tipo == OP_MULTIPLICA || tipo == OP_DIVIDE) ? "mul" : "add";
+  for (int i = 1; i < numOperandos; ++i) {
+    printf("%s\n", opAcumulacion);
+  }
+
+  if (target) {
+    printf("valord %s\n", target);
+    if (tipo == OP_RESTA || tipo == OP_DIVIDE) {
+      printf("swap\n");
+    }
+    const char *opFinal = (tipo == OP_SUMA) ? "add" :
+                          (tipo == OP_RESTA) ? "sub" :
+                          (tipo == OP_MULTIPLICA) ? "mul" : "div";
+    printf("%s\n", opFinal);
+  }
+
+  char *destinoFinal = destinoDando ? destinoDando : target;
+  if (!destinoFinal) {
+    yyerror("La operación aritmética requiere un destino");
+    if (destinoDando) free(destinoDando);
+    if (target) free(target);
+    return;
+  }
+  printf("valori %s\n", destinoFinal);
+  printf("swap\n");
+  printf("asigna\n");
+
+  if (destinoDando) {
+    free(destinoDando);
+  }
+  if (target) {
+    free(target);
   }
 }
 
