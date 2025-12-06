@@ -10,7 +10,8 @@
 ^[ \t]*\*.*         { /* Comentario COBOL (tolerante) */ }
 "*>".*              { /* Comentario en línea */ }
 "*|".*              { /* Comentario en línea alternativa */ }
-[ \t\r\n]+           { /* Espacios y saltos de línea */ }
+[ \t]+             { /* Espacios y tabs */ }
+[\r\n]+            { /* Saltos de línea */ }
 "\""[^"]*"\""      { yylval.cad = strdup(yytext); return CAD; }
 '[^']*'              { yylval.cad = strdup(yytext); return CAD; }
 
