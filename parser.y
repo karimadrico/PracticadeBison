@@ -15,7 +15,7 @@ static void generarOperacionAritmetica(const char *operacion, char *destinoBase,
   char *cad;
 }
 
-%type <num> listaExpresiones
+%type <num> listaExpresiones listaValores
 %type <id> targetOpt target optDando
 
 %token <num> NUM
@@ -193,7 +193,8 @@ optDando
   ;
 
 listaValores
-  : expresion expresion
+  : expresion { $$ = 1; }
+  | listaValores expresion { $$ = $1 + 1; }
   ;
 
 io
