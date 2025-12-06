@@ -44,6 +44,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 28 "parser.y"
+
+typedef struct LoopVecesInfo LoopVecesInfo;
+
+#line 53 "parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -99,14 +105,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 28 "parser.y"
+#line 32 "parser.y"
 
   int num;
   char *id;
   char *cad;
   LoopVecesInfo *loop;
 
-#line 110 "parser.tab.h"
+#line 116 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

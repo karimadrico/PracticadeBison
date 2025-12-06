@@ -83,14 +83,14 @@ typedef enum {
   OP_DIVIDE
 } TipoOperacion;
 
-typedef struct {
+struct LoopVecesInfo {
   char *lblInicio;
   char *lblFin;
   char *contadorId;
   int limiteEsLiteral;
   int limiteLiteral;
   char *limiteId;
-} LoopVecesInfo;
+};
 
 static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando);
 
@@ -578,12 +578,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    63,    63,    67,    68,    72,    73,    77,    78,    79,
-      80,    81,    85,    95,   121,   135,   154,   177,   180,   186,
-     192,   198,   204,   214,   221,   228,   235,   245,   246,   250,
-     251,   252,   256,   257,   261,   262,   266,   267,   273,   274,
-     279,   280,   281,   282,   283,   284,   285,   289,   290,   291,
-     292,   293,   294
+       0,    67,    67,    71,    72,    76,    77,    81,    82,    83,
+      84,    85,    89,    99,   125,   139,   158,   181,   184,   190,
+     196,   202,   208,   218,   225,   232,   239,   249,   250,   254,
+     255,   256,   260,   261,   265,   266,   270,   271,   277,   278,
+     283,   284,   285,   286,   287,   288,   289,   293,   294,   295,
+     296,   297,   298
 };
 #endif
 
@@ -1224,7 +1224,7 @@ yyreduce:
   switch (yyn)
     {
   case 12: /* bucle: MIENTRAS condicion HACER sentenciasOpt FINMIENTRAS  */
-#line 85 "parser.y"
+#line 89 "parser.y"
                                                        {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
@@ -1239,7 +1239,7 @@ yyreduce:
     break;
 
   case 13: /* bucle: EJECUTA bucleVecesCabecera sentenciasOpt FIN_EJECUTA  */
-#line 95 "parser.y"
+#line 99 "parser.y"
                                                          {
         LoopVecesInfo *info = (yyvsp[-2].loop);
         printf("valori %s\n", info->contadorId);
@@ -1269,7 +1269,7 @@ yyreduce:
     break;
 
   case 14: /* bucle: EJECUTA sentenciasOpt FIN_EJECUTA HASTAQUE condicion  */
-#line 121 "parser.y"
+#line 125 "parser.y"
                                                          {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
@@ -1285,7 +1285,7 @@ yyreduce:
     break;
 
   case 15: /* bucleVecesCabecera: NUM VECES USANDO ID  */
-#line 135 "parser.y"
+#line 139 "parser.y"
                         {
         LoopVecesInfo *info = malloc(sizeof(*info));
         if (!info) {
@@ -1309,7 +1309,7 @@ yyreduce:
     break;
 
   case 16: /* bucleVecesCabecera: ID VECES USANDO ID  */
-#line 154 "parser.y"
+#line 158 "parser.y"
                        {
         LoopVecesInfo *info = malloc(sizeof(*info));
         if (!info) {
@@ -1334,7 +1334,7 @@ yyreduce:
     break;
 
   case 17: /* comparar: SI condicion ENTONCES sentenciasOpt SINO sentenciasOpt FINSI  */
-#line 177 "parser.y"
+#line 181 "parser.y"
                                                                  {
       /* caso SI ... SINO ... FINSI */
     }
@@ -1342,7 +1342,7 @@ yyreduce:
     break;
 
   case 18: /* comparar: SI condicion ENTONCES sentenciasOpt FINSI  */
-#line 180 "parser.y"
+#line 184 "parser.y"
                                               {
       /* caso SI ... FINSI */
     }
@@ -1350,7 +1350,7 @@ yyreduce:
     break;
 
   case 19: /* asignar: ID '=' expresion  */
-#line 186 "parser.y"
+#line 190 "parser.y"
                      {
       printf("valori %s\n", (yyvsp[-2].id));
       printf("swap\n");
@@ -1361,7 +1361,7 @@ yyreduce:
     break;
 
   case 20: /* asignar: CALCULA ID '=' expresion FIN_CALCULA  */
-#line 192 "parser.y"
+#line 196 "parser.y"
                                          {
       printf("valori %s\n", (yyvsp[-3].id));
       printf("swap\n");
@@ -1372,7 +1372,7 @@ yyreduce:
     break;
 
   case 21: /* asignar: CALCULA ID COMO expresion  */
-#line 198 "parser.y"
+#line 202 "parser.y"
                               {
       printf("valori %s\n", (yyvsp[-2].id));
       printf("swap\n");
@@ -1383,7 +1383,7 @@ yyreduce:
     break;
 
   case 22: /* asignar: MUEVE NUM A ID  */
-#line 204 "parser.y"
+#line 208 "parser.y"
                    {
       printf("mete %d\n", (yyvsp[-2].num));
       printf("valori %s\n", (yyvsp[0].id));
@@ -1395,7 +1395,7 @@ yyreduce:
     break;
 
   case 23: /* arit: SUMA listaValores targetOpt optDando  */
-#line 214 "parser.y"
+#line 218 "parser.y"
                                          {
     if (!(yyvsp[-1].id) && !(yyvsp[0].id)) {
       yyerror("La operación SUMA requiere un destino");
@@ -1407,7 +1407,7 @@ yyreduce:
     break;
 
   case 24: /* arit: RESTA listaValores targetOpt optDando  */
-#line 221 "parser.y"
+#line 225 "parser.y"
                                           {
     if (!(yyvsp[-1].id) && !(yyvsp[0].id)) {
       yyerror("La operación RESTA requiere un destino");
@@ -1419,7 +1419,7 @@ yyreduce:
     break;
 
   case 25: /* arit: MULTIPLICA listaValores targetOpt optDando  */
-#line 228 "parser.y"
+#line 232 "parser.y"
                                                {
     if (!(yyvsp[-1].id) && !(yyvsp[0].id)) {
       yyerror("La operación MULTIPLICA requiere un destino");
@@ -1431,7 +1431,7 @@ yyreduce:
     break;
 
   case 26: /* arit: DIVIDE listaValores targetOpt optDando  */
-#line 235 "parser.y"
+#line 239 "parser.y"
                                            {
     if (!(yyvsp[-1].id) && !(yyvsp[0].id)) {
       yyerror("La operación DIVIDE requiere un destino");
@@ -1443,157 +1443,157 @@ yyreduce:
     break;
 
   case 27: /* targetOpt: target  */
-#line 245 "parser.y"
+#line 249 "parser.y"
            { (yyval.id) = (yyvsp[0].id); }
 #line 1449 "parser.tab.c"
     break;
 
   case 28: /* targetOpt: %empty  */
-#line 246 "parser.y"
+#line 250 "parser.y"
                  { (yyval.id) = NULL; }
 #line 1455 "parser.tab.c"
     break;
 
   case 29: /* target: DE ID  */
-#line 250 "parser.y"
+#line 254 "parser.y"
           { (yyval.id) = (yyvsp[0].id); }
 #line 1461 "parser.tab.c"
     break;
 
   case 30: /* target: A ID  */
-#line 251 "parser.y"
+#line 255 "parser.y"
          { (yyval.id) = (yyvsp[0].id); }
 #line 1467 "parser.tab.c"
     break;
 
   case 31: /* target: POR ID  */
-#line 252 "parser.y"
+#line 256 "parser.y"
            { (yyval.id) = (yyvsp[0].id); }
 #line 1473 "parser.tab.c"
     break;
 
   case 32: /* optDando: DANDO ID  */
-#line 256 "parser.y"
+#line 260 "parser.y"
              { (yyval.id) = (yyvsp[0].id); }
 #line 1479 "parser.tab.c"
     break;
 
   case 33: /* optDando: %empty  */
-#line 257 "parser.y"
+#line 261 "parser.y"
                  { (yyval.id) = NULL; }
 #line 1485 "parser.tab.c"
     break;
 
   case 34: /* listaValores: expresion  */
-#line 261 "parser.y"
+#line 265 "parser.y"
               { (yyval.num) = 1; }
 #line 1491 "parser.tab.c"
     break;
 
   case 35: /* listaValores: listaValores expresion  */
-#line 262 "parser.y"
+#line 266 "parser.y"
                            { (yyval.num) = (yyvsp[-1].num) + 1; }
 #line 1497 "parser.tab.c"
     break;
 
   case 36: /* io: LEE ID  */
-#line 266 "parser.y"
+#line 270 "parser.y"
            { printf("lee %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
 #line 1503 "parser.tab.c"
     break;
 
   case 37: /* io: MOSTRAR listaExpresiones  */
-#line 267 "parser.y"
+#line 271 "parser.y"
                              { printf("print %d\n", (yyvsp[0].num)); }
 #line 1509 "parser.tab.c"
     break;
 
   case 38: /* listaExpresiones: expresion  */
-#line 273 "parser.y"
+#line 277 "parser.y"
               { (yyval.num) = 1; }
 #line 1515 "parser.tab.c"
     break;
 
   case 39: /* listaExpresiones: listaExpresiones ',' expresion  */
-#line 274 "parser.y"
+#line 278 "parser.y"
                                    { (yyval.num) = (yyvsp[-2].num) + 1; }
 #line 1521 "parser.tab.c"
     break;
 
   case 40: /* expresion: ID  */
-#line 279 "parser.y"
+#line 283 "parser.y"
        { printf("valord %s\n", (yyvsp[0].id)); free((yyvsp[0].id)); }
 #line 1527 "parser.tab.c"
     break;
 
   case 41: /* expresion: NUM  */
-#line 280 "parser.y"
+#line 284 "parser.y"
         { printf("mete %d\n", (yyvsp[0].num)); }
 #line 1533 "parser.tab.c"
     break;
 
   case 42: /* expresion: CAD  */
-#line 281 "parser.y"
+#line 285 "parser.y"
         { printf("metecad %s\n", (yyvsp[0].cad)); free((yyvsp[0].cad)); }
 #line 1539 "parser.tab.c"
     break;
 
   case 43: /* expresion: expresion '*' expresion  */
-#line 282 "parser.y"
+#line 286 "parser.y"
                             { printf("mul\n"); }
 #line 1545 "parser.tab.c"
     break;
 
   case 44: /* expresion: expresion '/' expresion  */
-#line 283 "parser.y"
+#line 287 "parser.y"
                             { printf("div\n"); }
 #line 1551 "parser.tab.c"
     break;
 
   case 45: /* expresion: expresion '+' expresion  */
-#line 284 "parser.y"
+#line 288 "parser.y"
                             { printf("add\n"); }
 #line 1557 "parser.tab.c"
     break;
 
   case 46: /* expresion: expresion '-' expresion  */
-#line 285 "parser.y"
+#line 289 "parser.y"
                             { printf("sub\n"); }
 #line 1563 "parser.tab.c"
     break;
 
   case 47: /* condicion: expresion ES IGUAL A expresion  */
-#line 289 "parser.y"
+#line 293 "parser.y"
                                    { printf("valord %s\nmete 0\nxor\nnot\n", "__dummy__"); }
 #line 1569 "parser.tab.c"
     break;
 
   case 48: /* condicion: expresion ES MAYOR QUE expresion  */
-#line 290 "parser.y"
+#line 294 "parser.y"
                                      { printf("sub\n"); }
 #line 1575 "parser.tab.c"
     break;
 
   case 49: /* condicion: expresion ES MENOR QUE expresion  */
-#line 291 "parser.y"
+#line 295 "parser.y"
                                      { printf("sub\n"); }
 #line 1581 "parser.tab.c"
     break;
 
   case 50: /* condicion: expresion '<' expresion  */
-#line 292 "parser.y"
+#line 296 "parser.y"
                             { printf("sub\n"); }
 #line 1587 "parser.tab.c"
     break;
 
   case 51: /* condicion: expresion '>' expresion  */
-#line 293 "parser.y"
+#line 297 "parser.y"
                             { printf("sub\n"); }
 #line 1593 "parser.tab.c"
     break;
 
   case 52: /* condicion: expresion '=' expresion  */
-#line 294 "parser.y"
+#line 298 "parser.y"
                             { printf("xor\nnot\n"); }
 #line 1599 "parser.tab.c"
     break;
@@ -1792,7 +1792,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 297 "parser.y"
+#line 301 "parser.y"
 
 static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando) {
   const char *opAcumulacion = (tipo == OP_MULTIPLICA || tipo == OP_DIVIDE) ? "mul" : "add";
