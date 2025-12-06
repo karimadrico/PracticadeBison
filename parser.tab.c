@@ -1744,30 +1744,6 @@ yyreturnlab:
 
 #line 238 "parser.y"
 
-
-static void generarOperacionAritmetica(const char *operacion, char *operandoDestino, char *destinoDando) {
-  char *destinoFinal = destinoDando ? destinoDando : operandoDestino;
-  if (operandoDestino) {
-    printf("valord %s\n", operandoDestino);
-    if (strcmp(operacion, "sub") == 0 || strcmp(operacion, "div") == 0) {
-      printf("swap\n");
-    }
-  }
-  printf("%s\n", operacion);
-  if (!destinoFinal) {
-    return;
-  }
-  printf("valori %s\n", destinoFinal);
-  printf("swap\n");
-  printf("asigna\n");
-  if (destinoDando) {
-    free(destinoDando);
-  }
-  if (operandoDestino) {
-    free(operandoDestino);
-  }
-}
-
 static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando) {
   const char *opAcumulacion = (tipo == OP_MULTIPLICA || tipo == OP_DIVIDE) ? "mul" : "add";
   for (int i = 1; i < numOperandos; ++i) {

@@ -84,20 +84,43 @@ bucle
         printf("mete 1\n");
         printf("asigna\n");
         printf("%s:\n", lbl0);
-        // ...cuerpo del bucle...
-        // Incrementa el contador
+        // Incrementa el contador tras el cuerpo
         printf("valori %s\n", $5);
         printf("valord %s\n", $5);
         printf("mete 1\n");
         printf("add\n");
         printf("asigna\n");
-        // Condición de salida
+        // Condición de salida con literal
         printf("valord %s\n", $5);
-        printf("valord %d\n", $2); // número de repeticiones
+        printf("mete %d\n", $2);
         printf("sub\n");
         printf("siciertovea %s\n", lbl1);
         printf("vea %s\n", lbl0);
         printf("%s:\n", lbl1);
+        free($5);
+    }
+  | EJECUTA ID VECES USANDO ID sentencias FIN_EJECUTA {
+        char* lbl0 = getNumLbl();
+        char* lbl1 = getNumLbl();
+        // Inicializa el contador
+        printf("valori %s\n", $5);
+        printf("mete 1\n");
+        printf("asigna\n");
+        printf("%s:\n", lbl0);
+        // Incrementa el contador tras el cuerpo
+        printf("valori %s\n", $5);
+        printf("valord %s\n", $5);
+        printf("mete 1\n");
+        printf("add\n");
+        printf("asigna\n");
+        // Condición de salida con identificador
+        printf("valord %s\n", $5);
+        printf("valord %s\n", $2);
+        printf("sub\n");
+        printf("siciertovea %s\n", lbl1);
+        printf("vea %s\n", lbl0);
+        printf("%s:\n", lbl1);
+        free($2);
         free($5);
     }
   /* Bucle que ejecuta el bloque y se termina con HASTA-QUE condicion. */
