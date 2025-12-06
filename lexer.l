@@ -6,21 +6,22 @@
 %}
 %option noyywrap
 %%
-/* Comentario COBOL: exactamente 6 espacios y luego '*' */
-^[ ]{6}\*.*      { /* Ignorar comentario de línea completa */ ; }
 
-/* Comentarios en línea: '*>', '*|' */
-*>.*        { /* Ignorar hasta fin de línea */ ; }
-*|.*        { /* Ignorar hasta fin de línea */ ; }
+/* Comentario COBOL: exactamente 6 espacios y luego '*' en columna 7 */
+^[ ]{6}\*.*      { /* Ignora toda la línea (comentario COBOL) */ ; }
 
-/* Espacios y saltos de línea */
-[ \t\r\n]+    { /* Ignorar */ ; }
+/* Comentarios en línea: cualquier parte de la línea que empiece por '*>', o '*|' */
+*>.*        { /* Ignora desde '*>', resto de línea (comentario en línea) */ ; }
+*|.*        { /* Ignora desde '*|', resto de línea (comentario en línea) */ ; }
 
-/* Strings dobles y simples */
+/* Espacios y saltos de línea: ignora espacios, tabs y saltos de línea */
+[ \t\r\n]+    { /* Ignora espacios y saltos de línea */ ; }
+
+/* Cadenas de texto: dobles y simples */
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
 
-/* Palabras reservadas */
+/* Palabras reservadas del lenguaje */
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
@@ -59,13 +60,16 @@ COMO         { return COMO; }
 POR          { return POR; }
 ","          { return ','; }
 
-/* Números */
+/* Números: enteros positivos */
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
 
-/* Identificadores válidos: no empiezan/terminan por guion, no empiezan por dígito */
+/* Identificadores válidos: mayúsculas, dígitos y guion (no empiezan/terminan por guion ni por dígito) */
 [A-Z]([A-Z0-9]*(-[A-Z0-9]+)*)   { yylval.id = strdup(yytext); return ID; }
 
+/* Punto final de sentencia */
 \.            { return '.'; }
+
+/* Cualquier otro carácter: lo devuelve tal cual */
 .             { return yytext[0]; }
 %%
 #ifdef TEST_LEXER
