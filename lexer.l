@@ -6,16 +6,21 @@
 %}
 %option noyywrap
 %%
-/* Ignorar cualquier línea que empiece por espacios opcionales y '*' (cubre columna-7) */
-^[ \t]*\*.*      { /* Ignorar comentario de línea completa */ ; }
+/* Comentario COBOL: exactamente 6 espacios y luego '*' */
+^[ ]{6}\*.*      { /* Ignorar comentario de línea completa */ ; }
 
-/* Comentario en línea que empieza por '*>'. ('*|' es trampa y se omite) */
+/* Comentarios en línea: '*>', '*|' */
 "*>".*        { /* Ignorar hasta fin de línea */ ; }
+"*|".*        { /* Ignorar hasta fin de línea */ ; }
 
 /* Espacios y saltos de línea */
 [ \t\r\n]+    { /* Ignorar */ ; }
+
+/* Strings dobles y simples */
 \"[^\"]*\"      { yylval.cad = strdup(yytext); return CAD; }
 \'[^\']*\'      { yylval.cad = strdup(yytext); return CAD; }
+
+/* Palabras reservadas */
 PROGRAMA     { return PROGRAMA; }
 INICIO       { return INICIO; }
 FIN          { return FIN; }
@@ -53,12 +58,16 @@ DE           { return DE; }
 COMO         { return COMO; }
 POR          { return POR; }
 ","          { return ','; }
+
+/* Números */
 [0-9]+       { yylval.num = atoi(yytext); return NUM; }
-[A-Z][A-Z0-9-]*    { yylval.id = strdup(yytext); return ID; }
+
+/* Identificadores válidos: no empiezan/terminan por guion, no empiezan por dígito */
+[A-Z]([A-Z0-9]*(-[A-Z0-9]+)*)   { yylval.id = strdup(yytext); return ID; }
+
 \.            { return '.'; }
 .             { return yytext[0]; }
 %%
-// Helper para pruebas del lexer si se compila con -DTEST_LEXER
 #ifdef TEST_LEXER
 int main(void) {
     int token;
