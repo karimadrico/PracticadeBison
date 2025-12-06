@@ -10,8 +10,8 @@
 ^[ ]{6}\*.*      { /* Ignorar comentario de línea completa */ ; }
 
 /* Comentarios en línea: '*>', '*|' */
-"*>".*        { /* Ignorar hasta fin de línea */ ; }
-"*|".*        { /* Ignorar hasta fin de línea */ ; }
+*>.*        { /* Ignorar hasta fin de línea */ ; }
+*|.*        { /* Ignorar hasta fin de línea */ ; }
 
 /* Espacios y saltos de línea */
 [ \t\r\n]+    { /* Ignorar */ ; }
@@ -43,15 +43,15 @@ VECES        { return VECES; }
 USANDO       { return USANDO; }
 FIN-EJECUTA  { return FIN_EJECUTA; }
 FINSI        { return FINSI; }
-"FIN-SI"     { return FINSI; }
-"HASTA-QUE"  { return HASTAQUE; }
+FIN-SI       { return FINSI; }
+HASTA-QUE    { return HASTAQUE; }
 SUMA         { return SUMA; }
 RESTA        { return RESTA; }
 MULTIPLICA   { return MULTIPLICA; }
 DIVIDE       { return DIVIDE; }
 DANDO        { return DANDO; }
 CALCULA      { return CALCULA; }
-"FIN-CALCULA" { return FIN_CALCULA; }
+FIN-CALCULA  { return FIN_CALCULA; }
 MUEVE        { return MUEVE; }
 A            { return A; }
 DE           { return DE; }
