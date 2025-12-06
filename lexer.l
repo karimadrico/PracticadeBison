@@ -75,5 +75,5 @@
 	}
 }
 \.                   { return '.'; }
-.                    { return yytext[0]; }
+.    { printf("TOKEN NO ESPERADO: %s\n", yytext); return yytext[0]; }
 %%
