@@ -8,6 +8,7 @@
 %%
 
 ^[ \t]*[ ]{6}\*.*   { /* Comentario COBOL (robusta) */ }
+^[ \t]*\*.*         { /* Comentario COBOL (tolerante) */ }
 "*>".*              { /* Comentario en línea */ }
 "*|".*              { /* Comentario en línea alternativa */ }
 [ \t\r\n]+           { /* Espacios y saltos de línea */ }
