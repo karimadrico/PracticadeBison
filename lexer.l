@@ -11,7 +11,6 @@
 "*>".*              { /* Comentario en línea */ }
 "*|".*              { /* Comentario en línea alternativa */ }
 [ \t\r\n]+           { /* Espacios y saltos de línea */ }
-"*"                  { /* Ignorar cualquier asterisco suelto */ }
 "\""[^"]*"\""      { yylval.cad = strdup(yytext); return CAD; }
 '[^']*'              { yylval.cad = strdup(yytext); return CAD; }
 
@@ -66,7 +65,6 @@
 			break;
 		}
 	}
-	printf("DEBUG ID: %s\n", yytext);
 	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
 		/* Ignorar identificador inválido o reservado */
 		return 0;

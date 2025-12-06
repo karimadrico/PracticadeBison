@@ -1094,6 +1094,7 @@ YY_RULE_SETUP
 			break;
 		}
 	}
+	printf("DEBUG ID: %s\n", yytext);
 	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
 		/* Ignorar identificador inválido o reservado */
 		return 0;
@@ -1105,20 +1106,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 77 "lexer.l"
+#line 78 "lexer.l"
 { return '.'; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 78 "lexer.l"
+#line 79 "lexer.l"
 { return yytext[0]; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 79 "lexer.l"
+#line 80 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 1121 "lex.yy.c"
+#line 1122 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2126,5 +2127,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 79 "lexer.l"
+#line 80 "lexer.l"
 
