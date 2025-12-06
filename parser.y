@@ -13,6 +13,15 @@ typedef enum {
   OP_DIVIDE
 } TipoOperacion;
 
+typedef struct {
+  char *lblInicio;
+  char *lblFin;
+  char *contadorId;
+  int limiteEsLiteral;
+  int limiteLiteral;
+  char *limiteId;
+} LoopVecesInfo;
+
 static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando);
 %}
 
@@ -20,10 +29,12 @@ static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, cha
   int num;
   char *id;
   char *cad;
+  LoopVecesInfo *loop;
 }
 
 %type <num> listaExpresiones listaValores
 %type <id> targetOpt target optDando
+%type <loop> bucleVecesCabecera
 
 %token <num> NUM
 %token <id> ID
@@ -49,12 +60,17 @@ static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, cha
 %%
 
 programa
-  : PROGRAMA ID '.' INICIO sentencias FIN '.'
+  : PROGRAMA ID '.' INICIO sentenciasOpt FIN '.'
   ;
 
 sentencias
-  : /* vacío */
+  : sentencia
   | sentencias sentencia
+  ;
+
+sentenciasOpt
+  : /* vacío */
+  | sentencias
   ;
 
 sentencia
@@ -66,7 +82,7 @@ sentencia
   ;
 
 bucle
-  : MIENTRAS condicion HACER sentencias FINMIENTRAS {
+  : MIENTRAS condicion HACER sentenciasOpt FINMIENTRAS {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
@@ -76,55 +92,33 @@ bucle
         printf("vea %s\n", lbl0);
         printf("%s:\n", lbl1);
     }
-  | EJECUTA NUM VECES USANDO ID sentencias FIN_EJECUTA {
-        char* lbl0 = getNumLbl();
-        char* lbl1 = getNumLbl();
-        // Inicializa el contador
-        printf("valori %s\n", $5); // variable contador
-        printf("mete 1\n");
-        printf("asigna\n");
-        printf("%s:\n", lbl0);
-        // Incrementa el contador tras el cuerpo
-        printf("valori %s\n", $5);
-        printf("valord %s\n", $5);
+  | EJECUTA bucleVecesCabecera sentenciasOpt FIN_EJECUTA {
+        LoopVecesInfo *info = $2;
+        printf("valori %s\n", info->contadorId);
+        printf("valord %s\n", info->contadorId);
         printf("mete 1\n");
         printf("add\n");
         printf("asigna\n");
-        // Condición de salida con literal
-        printf("valord %s\n", $5);
-        printf("mete %d\n", $2);
+        printf("valord %s\n", info->contadorId);
+        if (info->limiteEsLiteral) {
+          printf("mete %d\n", info->limiteLiteral);
+        } else {
+          printf("valord %s\n", info->limiteId);
+        }
         printf("sub\n");
-        printf("siciertovea %s\n", lbl1);
-        printf("vea %s\n", lbl0);
-        printf("%s:\n", lbl1);
-        free($5);
-    }
-  | EJECUTA ID VECES USANDO ID sentencias FIN_EJECUTA {
-        char* lbl0 = getNumLbl();
-        char* lbl1 = getNumLbl();
-        // Inicializa el contador
-        printf("valori %s\n", $5);
-        printf("mete 1\n");
-        printf("asigna\n");
-        printf("%s:\n", lbl0);
-        // Incrementa el contador tras el cuerpo
-        printf("valori %s\n", $5);
-        printf("valord %s\n", $5);
-        printf("mete 1\n");
-        printf("add\n");
-        printf("asigna\n");
-        // Condición de salida con identificador
-        printf("valord %s\n", $5);
-        printf("valord %s\n", $2);
-        printf("sub\n");
-        printf("siciertovea %s\n", lbl1);
-        printf("vea %s\n", lbl0);
-        printf("%s:\n", lbl1);
-        free($2);
-        free($5);
+        printf("siciertovea %s\n", info->lblFin);
+        printf("vea %s\n", info->lblInicio);
+        printf("%s:\n", info->lblFin);
+        free(info->contadorId);
+        if (!info->limiteEsLiteral && info->limiteId) {
+          free(info->limiteId);
+        }
+        free(info->lblInicio);
+        free(info->lblFin);
+        free(info);
     }
   /* Bucle que ejecuta el bloque y se termina con HASTA-QUE condicion. */
-  | EJECUTA sentencias FIN_EJECUTA HASTAQUE condicion {
+  | EJECUTA sentenciasOpt FIN_EJECUTA HASTAQUE condicion {
         char* lbl0 = getNumLbl();
         char* lbl1 = getNumLbl();
         printf("%s:\n", lbl0);
@@ -137,11 +131,53 @@ bucle
     }
   ;
 
+bucleVecesCabecera
+  : NUM VECES USANDO ID {
+        LoopVecesInfo *info = malloc(sizeof(*info));
+        if (!info) {
+          yyerror("Sin memoria para el bucle EJECUTA VECES");
+          free($4);
+          YYERROR;
+        }
+        info->lblInicio = getNumLbl();
+        info->lblFin = getNumLbl();
+        info->contadorId = $4;
+        info->limiteEsLiteral = 1;
+        info->limiteLiteral = $1;
+        info->limiteId = NULL;
+        printf("valori %s\n", info->contadorId);
+        printf("mete 1\n");
+        printf("asigna\n");
+        printf("%s:\n", info->lblInicio);
+        $$ = info;
+    }
+  | ID VECES USANDO ID {
+        LoopVecesInfo *info = malloc(sizeof(*info));
+        if (!info) {
+          yyerror("Sin memoria para el bucle EJECUTA VECES");
+          free($1);
+          free($4);
+          YYERROR;
+        }
+        info->lblInicio = getNumLbl();
+        info->lblFin = getNumLbl();
+        info->contadorId = $4;
+        info->limiteEsLiteral = 0;
+        info->limiteLiteral = 0;
+        info->limiteId = $1;
+        printf("valori %s\n", info->contadorId);
+        printf("mete 1\n");
+        printf("asigna\n");
+        printf("%s:\n", info->lblInicio);
+        $$ = info;
+    }
+  ;
+
 comparar
-  : SI condicion ENTONCES sentencias SINO sentencias FINSI {
+  : SI condicion ENTONCES sentenciasOpt SINO sentenciasOpt FINSI {
       /* caso SI ... SINO ... FINSI */
     }
-  | SI condicion ENTONCES sentencias FINSI {
+  | SI condicion ENTONCES sentenciasOpt FINSI {
       /* caso SI ... FINSI */
     }
   ;
