@@ -7,7 +7,7 @@
 %option noyywrap
 %%
 
-^[ ]{6}\*.*         { /* Comentario COBOL */ }
+^[ \t]*[ ]{6}\*.*   { /* Comentario COBOL (robusta) */ }
 "*>".*              { /* Comentario en línea */ }
 "*|".*              { /* Comentario en línea alternativa */ }
 [ \t\r\n]+           { /* Espacios y saltos de línea */ }
