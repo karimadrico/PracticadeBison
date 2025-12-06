@@ -66,6 +66,7 @@
 			break;
 		}
 	}
+	printf("DEBUG ID: %s\n", yytext);
 	if (L > 0 && (yytext[0]=='-' || yytext[L-1]=='-' || es_reservada)) {
 		/* Ignorar identificador inválido o reservado */
 		return 0;
