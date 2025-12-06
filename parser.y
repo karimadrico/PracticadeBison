@@ -181,8 +181,7 @@ targetOpt
   ;
 
 target
-  : ID { $$ = $1; }
-  | DE ID { $$ = $2; }
+  : DE ID { $$ = $2; }
   | A ID { $$ = $2; }
   | POR ID { $$ = $2; }
   ;
