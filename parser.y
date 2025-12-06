@@ -13,17 +13,21 @@ typedef enum {
   OP_DIVIDE
 } TipoOperacion;
 
-typedef struct {
+struct LoopVecesInfo {
   char *lblInicio;
   char *lblFin;
   char *contadorId;
   int limiteEsLiteral;
   int limiteLiteral;
   char *limiteId;
-} LoopVecesInfo;
+};
 
 static void generarOperacionAritmetica(TipoOperacion tipo, int numOperandos, char *target, char *destinoDando);
 %}
+
+%code requires {
+typedef struct LoopVecesInfo LoopVecesInfo;
+}
 
 %union {
   int num;
