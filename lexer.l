@@ -1,3 +1,4 @@
+\*                   { /* Ignorar cualquier asterisco suelto */ }
 %{
 #include "parser.tab.h"
 #include <stdio.h>
