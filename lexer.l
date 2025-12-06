@@ -9,6 +9,7 @@
 
 ^[ ]{6}\*.*         { /* Comentario COBOL */ }
 "*>".*              { /* Comentario en línea */ }
+"*|".*              { /* Comentario en línea alternativa */ }
 [ \t\r\n]+           { /* Espacios y saltos de línea */ }
 "\""[^"]*"\""      { yylval.cad = strdup(yytext); return CAD; }
 '[^']*'              { yylval.cad = strdup(yytext); return CAD; }
