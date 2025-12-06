@@ -7,7 +7,6 @@
 %option noyywrap
 %%
 
-^[ \t]*[ ]{6}\*.*   { /* Comentario COBOL (robusta) */ }
 ^[ \t]*\*.*         { /* Comentario COBOL (tolerante) */ }
 "*>".*              { /* Comentario en línea */ }
 "*|".*              { /* Comentario en línea alternativa */ }
@@ -75,5 +74,5 @@
 	}
 }
 \.                   { return '.'; }
-.    { printf("TOKEN NO ESPERADO: %s\n", yytext); return yytext[0]; }
+.                    { return yytext[0]; }
 %%

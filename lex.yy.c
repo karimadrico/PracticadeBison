@@ -1126,7 +1126,7 @@ YY_RULE_SETUP
 case 48:
 YY_RULE_SETUP
 #line 78 "lexer.l"
-{ return yytext[0]; }
+{ printf("TOKEN NO ESPERADO: %s\n", yytext); return yytext[0]; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
